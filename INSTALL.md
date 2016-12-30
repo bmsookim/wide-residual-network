@@ -82,7 +82,7 @@ You can skip the step above and automatically install the driver within CUDA ins
 
 Check the details below.
 
-### 1. Download the CUDA download .run file from the CUDA download page
+### * Download the CUDA download .run file from the CUDA download page
 
 CUDA download page : [click here](https://developer.nvidia.com/cuda-downloads)
 
@@ -92,7 +92,7 @@ Before executing the file, stop the display manager by following the description
 $ sudo sh <DIR where you downloaded the .run file>/cuda_8.0.44_linux.run
 ```
 
-### 2. Link your CUDA in .bashrc
+### * Link your CUDA in .bashrc
 
 ```bash
 $ sudo apt-get install vim

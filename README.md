@@ -51,7 +51,7 @@ $ sudo sh scripts/[:dataset]_test.sh
 
 ## CIFAR-10 Results
  
-![alt tag](../_IMAGES/cifar10_image.png)
+![alt tag](_IMAGES/cifar10_image.png)
 
 Below is the result of the test set accuracy for **CIFAR-10 dataset** training.
 
@@ -68,7 +68,7 @@ Below is the result of the test set accuracy for **CIFAR-10 dataset** training.
 
 ## CIFAR-100 Results
 
-![alt tag](../_IMAGES/cifar100_image.png)
+![alt tag](_IMAGES/cifar100_image.png)
 
 Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 
