@@ -11,6 +11,7 @@ See the [server instruction](SERVER.md) for server settup.
 - Install luarocks packages
 ```bash
 $ luarocks install cutorch
+$ luarocks install xlua
 $ luarocks install optnet
 ```
 ## Directions and datasets
