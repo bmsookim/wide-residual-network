@@ -49,7 +49,7 @@ if opt.testOnly then
     local top1Err, top5Err = trainer:test(0, valLoader)
     print(' * Results Top1 : ', string.format('%6.3f', top1Err)..'%\n')
     if opt.top5_display then
-        print('           Top5 : ', string.format('%6.3f', top5Err)..'%\n'..)
+        -- print('           Top5 : ', string.format('%6.3f', top5Err)..'%\n'..)
     end
     return
 end
@@ -86,5 +86,5 @@ end
 
 print(' * Results Top1 : ', string.format('%6.3f', top1Err)..'%\n')
 if opt.top5_display then
-    print('           Top5 : ', string.format('%6.3f', top5Err)..'%\n'..)
+    --print('           Top5 : ', string.format('%6.3f', top5Err)..'%\n'..)
 end 
