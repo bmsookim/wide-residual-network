@@ -47,10 +47,10 @@ function Trainer:train(epoch, dataloader)
    local top1Sum, top5Sum, lossSum = 0.0, 0.0, 0.0
    local N = 0
 
-   print('\n=> Training epoch # ' .. epoch)
-   print(' [Progress] : ')
+   print(sys.COLORS.Blue..'\n => Training epoch # ' .. epoch..sys.COLORS.none)
    -- set the batch norm to training mode
    self.model:training()
+   local trainTime = 0.0
    for n, sample in dataloader:run() do
       local dataTime = dataTimer:time().real
 
@@ -76,6 +76,19 @@ function Trainer:train(epoch, dataloader)
 
       -- print out a progress bar
       xlua.progress(n, trainSize)
+
+      -- print out percentage training
+      if n == trainSize then
+          if self.opt.top5_display then
+              print((' | [#%3d][training report]\tTop1 %6.3f%s  Top5 %6.3f%s  Loss %1.4f  Time %.3f')
+              :format(epoch, top1, '%', top5, '%', trainTime, loss))
+          else
+              print((' | [#%3d][training report]\tTop1 %6.3f%s  Loss %1.4f  Time %.3f')
+              :format(epoch, top1, '%', trainTime, loss))
+          end
+      else
+          trainTime = trainTime + timer:time().real + dataTime
+      end
 
       -- check that the storage didn't get changed do to an unfortunate getParameters call
       assert(self.params:storage() == self.model:parameters()[1]:storage())
@@ -126,11 +139,13 @@ function Trainer:test(epoch, dataloader)
         return top1Sum/N, top5Sum/N
     end
 
-    print((' * Finished epoch # %d     top1: %6.3f%s'):format(epoch, top1Sum / N, '%'))
     if self.opt.top5_display then
-        print(('                          top5: %6.3f%s'):format(top5Sum / N, '%'))
+        print((' | [#%3d][validate report]\tTop1 %6.3f%s  Top5 %6.3f%s')
+        :format(epoch, top1Sum / N, '%', top5Sum / N, '%'))
+    else
+        print((' | [#%3d][validate report]\tTop1 %6.3f%s'):format(epoch, top1Sum / N, '%'))
     end
-    print(' * Elapsed time: '..math.floor(elapsed_time/3600)..' hours '..
+    print(' | Elapsed time: '..math.floor(elapsed_time/3600)..' hours '..
                                math.floor((elapsed_time%3600)/60)..' minutes '..
                                math.floor((elapsed_time%3600)%60)..' seconds')
     return top1Sum/N, top5Sum/N

@@ -12,7 +12,7 @@ th main.lua \
     -dataset ${dataset} \
     -netType ${netType} \
     -resume modelState \
-    -nGPU 2 \
+    -nGPU 1 \
     -top5_display true \
     -testOnly true \
     -dropout 0.3 \

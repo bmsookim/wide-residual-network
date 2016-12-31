@@ -71,10 +71,12 @@ for epoch = startEpoch, opt.nEpochs do
         bestModel = true
         bestTop1 = testTop1
         bestTop5 = testTop5
-        print(' * Best model (Top1): ', string.format('%5.2f', testTop1)..'%')
+        c = sys.COLORS.Green
+        io.write(c..' * Best model (Top1): ', string.format(c..'%5.2f', testTop1)..'%')
         if opt.top5_display then
-            print('              (Top5): ', string.format('%5.2f', testTop5)..'%')
+            io.write(c..'  (Top5): ', string.format(c..'%5.2f', testTop5)..'%')
         end
+        io.write('\n')
     end
 
     -- Save the model if it is the current best model
