@@ -37,7 +37,7 @@ local checkpoint, optimState = checkpoints.best(opt)
 
 -- Create & Setting up the model
 local model, criterion = models.setup(opt, checkpoint)
-print(model) -- print the model layout, torch
+-- print(model) -- print the model layout, torch
 
 -- Create modules for loading batch data in the training & validation process
 local trainLoader, valLoader = DataLoader.create(opt)
@@ -46,11 +46,17 @@ local trainLoader, valLoader = DataLoader.create(opt)
 local trainer = Trainer(model, criterion, opt, optimState)
 
 if opt.testOnly then
-    local top1Err, top5Err = trainer:test(0, valLoader)
-    print('\n * Results Top1 : ', string.format('%6.3f', top1Err)..'%')
+    local top1, top5 = trainer:test(opt.nEpochs, valLoader)
+    print('\n===============[ Test Result Report ]===============')
+    print(' * Dataset\t: '..opt.dataset)
+    print(' * Network\t: '..opt.netType..' '..opt.depth..'x'..opt.widen_factor)
+    print(' * Dropout\t: '..opt.dropout)
+    print(' * nGPU\t\t: '..opt.nGPU)
+    print(' * Top1\t\t: '..string.format('%6.3f', top1)..'%')
     if opt.top5_display then
-        print('           Top5 : ', string.format('%6.3f', top5Err)..'%')
+        print(' * Top5\t\t: '..string.format('%6.3f', top5)..'%')
     end
+    print('=====================================================')
     return
 end
 
@@ -83,8 +89,13 @@ for epoch = startEpoch, opt.nEpochs do
     checkpoints.save(epoch, model, trainer.optimState, bestModel, opt)
 end
 
-print('\n=> Final Result Report #'..opt.nEpochs)
-print(' * Finished Top1 : ', string.format('%6.3f', bestTop1)..'%')
+print('\n===============[ Test Result Report ]===============')
+print(' * Dataset\t: '..opt.dataset)
+print(' * Network\t: '..opt.netType..' '..opt.depth..'x'..opt.widen_factor)
+print(' * Dropout\t: '..opt.dropout)
+print(' * nGPU\t\t: '..opt.nGPU)
+print(' * Top1\t\t: '..string.format('%6.3f', bestTop1)..'%')
 if opt.top5_display then
-    print('            Top5 : ', string.format('%6.3f', bestTop5)..'%')
+    print(' * Top5\t\t: '..string.format('%6.3f', bestTop5)..'%')
 end
+print('=====================================================')

@@ -73,6 +73,7 @@ function M.parse(arg)
    opt.optnet = opt.optnet ~= 'false'
    opt.resetClassifier = opt.resetClassifier ~= 'false'
    opt.top5_display = opt.top5_display ~= 'false'
+   opt.nGPU = cutorch.getDeviceCount()
 
    if opt.netType == 'wide-resnet' then 
        opt.save = opt.save..'/'..opt.dataset..'/'..opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'

@@ -77,7 +77,7 @@ function Trainer:train(epoch, dataloader)
       -- print out a progress bar
       xlua.progress(n, trainSize)
 
-      -- print out percentage training
+      -- print out training report
       if n == trainSize then
           if self.opt.top5_display then
               print((' | [#%3d][training report]\tTop1 %6.3f%s  Top5 %6.3f%s  Loss %1.4f  Time %.3f')
