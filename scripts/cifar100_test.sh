@@ -18,4 +18,4 @@ th main.lua \
     -batchSize 128 \
     -depth ${depth} \
     -widen_factor ${width} \
-    | tee $save/test_log_${experiment_number}.txt
+    | tee $save/log_${experiment_number}.txt

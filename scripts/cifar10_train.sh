@@ -1,7 +1,7 @@
 #!/bin/bash
 export netType='wide-resnet'
-export depth=10
-export width=1
+export depth=28
+export width=10
 export dataset='cifar10'
 mkdir -p modelState
 
@@ -14,4 +14,3 @@ th main.lua \
     -testOnly false \
     -depth ${depth} \
     -widen_factor ${width} \
-    -nEpochs 2 \
