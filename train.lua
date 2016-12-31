@@ -33,59 +33,58 @@ end
 
 -- Training process
 function Trainer:train(epoch, dataloader)
-    -- Set learning rate by decaying schedules
+    -- Trains the model for a single epoch
     self.optimState.learningRate = self:learningRate(epoch)
 
-    -- Set up timers
-    local timer = torch.Timer()
-    local dataTimer = torch.Timer()
+   local timer = torch.Timer()
+   local dataTimer = torch.Timer()
 
-    local function feval()
-        return self.criterion.output, self.gradParams
-    end
+   local function feval()
+      return self.criterion.output, self.gradParams
+   end
 
-    local trainSize = dataloader:size()
-    local top1Sum, top5Sum, lossSum = 0.0, 0.0, 0.0
-    local N = 0
+   local trainSize = dataloader:size()
+   local top1Sum, top5Sum, lossSum = 0.0, 0.0, 0.0
+   local N = 0
 
-    print('=> Training Epoch # ' .. epoch)
-    
-    -- set the batch normalization to training mode
-    self.model:training()
-    
-    -- Epoch iteration
-    for n, sample in dataloader:run() do
-        local dataTime = dataTimer:time().real
+   print('\n=> Training epoch # ' .. epoch)
+   print(' [Progress] : ')
+   -- set the batch norm to training mode
+   self.model:training()
+   for n, sample in dataloader:run() do
+      local dataTime = dataTimer:time().real
 
-        -- Copy input and target into the GPUs
-        self:copyInputs(sample)
+      -- Copy input and target to the GPU
+      self:copyInputs(sample)
 
-        local output = self.model:forward(self.input):float()
-        local batchSize = output:size(1)
-        local loss = self.criterion:forward(self.model.output, self.target)
+      local output = self.model:forward(self.input):float()
+      local batchSize = output:size(1)
+      local loss = self.criterion:forward(self.model.output, self.target)
 
-        self.model:zeroGradParameters() -- Zeroing the accumulation of every gradients of parameters
-        self.criterion:backward(self.model.output, self.target) -- backward propagation
-        self.model:backward(self,input, self.criterion.gradInput) -- backward propagation
+      self.model:zeroGradParameters()
+      self.criterion:backward(self.model.output, self.target)
+      self.model:backward(self.input, self.criterion.gradInput)
 
-        optim.sgd(feval, self.params, self.optimState) -- Update by Stochastic Gradient Descent
+      optim.sgd(feval, self.params, self.optimState)
 
-        local top1, top5 = self:computeScore(output, sample.target, 1)
-        top1Sum = top1Sum + top1*batchSize
-        top5Sum = top5Sum + top5*batchSize
-        lossSum = lossSum + loss*batchSize
-        N = N + batchSize
-        elapsed_time = elapsed_time + timer:time().real + dataTime
+      local top1, top5 = self:computeScore(output, sample.target, 1)
+      top1Sum = top1Sum + top1*batchSize
+      top5Sum = top5Sum + top5*batchSize
+      lossSum = lossSum + loss*batchSize
+      N = N + batchSize
+      elapsed_time = elapsed_time + timer:time().real + dataTime
 
-        xlua.progress(n, trainSize)
+      -- print out a progress bar
+      xlua.progress(n, trainSize)
 
-        assert(self.params:storage() == self.model:parameters()[1]:storage())
+      -- check that the storage didn't get changed do to an unfortunate getParameters call
+      assert(self.params:storage() == self.model:parameters()[1]:storage())
 
-        timer:reset()
-        dataTimer:reset()
-    end
+      timer:reset()
+      dataTimer:reset()
+   end
 
-    return top1Sum/N, top5Sum/N, lossSum/N
+   return top1Sum / N, top5Sum / N, lossSum / N
 end
 
 -- Validation process
@@ -129,31 +128,33 @@ function Trainer:test(epoch, dataloader)
 
     print((' * Finished epoch # %d     top1: %6.3f%s'):format(epoch, top1Sum / N, '%'))
     if self.opt.top5_display then
-        print(('                           top5: %6.3f%s'):format(epoch, top1Sum / N, '%'))
+        print(('                          top5: %6.3f%s'):format(top5Sum / N, '%'))
     end
     print(' * Elapsed time: '..math.floor(elapsed_time/3600)..' hours '..
                                math.floor((elapsed_time%3600)/60)..' minutes '..
-                               math.floor((elapsed_time%3600)%60)..' seconds\n')
+                               math.floor((elapsed_time%3600)%60)..' seconds')
     return top1Sum/N, top5Sum/N
 end
 
 -- Scoring Process
 function Trainer:computeScore(output, target, nCrops)
     if nCrops > 1 then
-        output = output:view(output:size(1) / nCrops, nCrops, output:size(2)):sum(2):squeeze(2) -- sum over crops
+        -- Sum over crops
+        output = output:view(output:size(1) / nCrops, nCrops, output:size(2)):sum(2):squeeze(2)
     end
-
+    
+    -- Coputes the top1 and top5 error rate
     local batchSize = output:size(1)
-    local _, predictions = output:float():sort(2, true) -- descending order organize
+    local _ , predictions = output:float():sort(2, true) -- sort in descending orders
 
     -- Find which predictions match the target
     local correct = predictions:eq(
-        target:long():view(batchSIze, 1):expandAs(output))
-
-    -- Top 1 Score
+        target:long():view(batchSize, 1):expandAs(output))
+        
+    -- Top-1 score
     local top1 = (correct:narrow(2, 1, 1):sum() / batchSize)
 
-    -- Top 5 Score
+    -- Top-5 score, if there are at least 5 classes
     local len = math.min(5, correct:size(2))
     local top5 = (correct:narrow(2, 1, len):sum() / batchSize)
 
@@ -175,9 +176,9 @@ function Trainer:learningRate(epoch)
     -- Learning rate according to training schedule
     local decay = 0
     if self.opt.dataset == 'cifar10' then 
-        decay = epoch >= 160 and 3 or epoch >= 20 and 2 or epoch >= 60 and 1 or 0
+        decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 60 and 1 or 0
     elseif self.opt.dataset == 'cifar100' then 
-        decay = epoch >= 160 and 3 or epoch >= 20 and 2 or epoch >= 60 and 1 or 0
+        decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 60 and 1 or 0
     end
     return self.opt.LR * math.pow(0.2, decay)
 end

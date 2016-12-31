@@ -47,6 +47,6 @@ luac.out
 
 # File directories
 *.t7
-*/gen/*
+gen/*
 
 # End of gitignore

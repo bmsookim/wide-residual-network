@@ -1,7 +1,7 @@
 #!/bin/bash
 export netType='wide-resnet'
-export depth=28
-export width=10
+export depth=10
+export width=1
 export dataset='cifar100'
 export save=logs/${dataset}/${netType}-${depth}x${width}
 export experiment_number=1
@@ -18,4 +18,4 @@ th main.lua \
     -batchSize 128 \
     -depth ${depth} \
     -widen_factor ${width} \
-    | tee $save/train_log_${experiment_number}.txt
+    -nEpochs 2 \

@@ -15,7 +15,7 @@ require 'optim'
 require 'nn'
 
 --------- Import each modules --------- 
-local Dataloader = require 'dataloader'
+local DataLoader = require 'dataloader'
 local models = require 'networks/init'
 local Trainer = require 'train'
 local opts = require 'opts'
@@ -47,9 +47,9 @@ local trainer = Trainer(model, criterion, opt, optimState)
 
 if opt.testOnly then
     local top1Err, top5Err = trainer:test(0, valLoader)
-    print(' * Results Top1 : ', string.format('%6.3f', top1Err)..'%\n')
+    print('\n * Results Top1 : ', string.format('%6.3f', top1Err)..'%')
     if opt.top5_display then
-        -- print('           Top5 : ', string.format('%6.3f', top5Err)..'%\n'..)
+        print('           Top5 : ', string.format('%6.3f', top5Err)..'%')
     end
     return
 end
@@ -71,20 +71,18 @@ for epoch = startEpoch, opt.nEpochs do
         bestModel = true
         bestTop1 = testTop1
         bestTop5 = testTop5
-        print('==================================================================')
-        print(' * Best model (Top1): ', string.format('%5.2f', testTop1)..'%\n')
+        print(' * Best model (Top1): ', string.format('%5.2f', testTop1)..'%')
         if opt.top5_display then
-            print('              (Top5): ', string.format('%5.2f', testTop5)..'%\n')
+            print('              (Top5): ', string.format('%5.2f', testTop5)..'%')
         end
-        print('=> Saving the best model in '..opt.save)
-        print('==================================================================\n')
     end
 
     -- Save the model if it is the current best model
     checkpoints.save(epoch, model, trainer.optimState, bestModel, opt)
 end
 
-print(' * Results Top1 : ', string.format('%6.3f', top1Err)..'%\n')
+print('\n=> Final Result Report #'..opt.nEpochs)
+print(' * Finished Top1 : ', string.format('%6.3f', bestTop1)..'%')
 if opt.top5_display then
-    --print('           Top5 : ', string.format('%6.3f', top5Err)..'%\n'..)
-end 
+    print('            Top5 : ', string.format('%6.3f', bestTop5)..'%')
+end
