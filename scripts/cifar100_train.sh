@@ -1,11 +1,8 @@
 #!/bin/bash
 export netType='wide-resnet'
-export depth=10
-export width=1
+export depth=28
+export width=10
 export dataset='cifar100'
-export save=logs/${dataset}/${netType}-${depth}x${width}
-export experiment_number=1
-mkdir -p $save
 mkdir -p modelState
 
 th main.lua \
@@ -18,4 +15,3 @@ th main.lua \
     -batchSize 128 \
     -depth ${depth} \
     -widen_factor ${width} \
-    -nEpochs 2 \
