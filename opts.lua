@@ -46,14 +46,14 @@ function M.parse(arg)
    ---------------------- Optimization options ---------------
    cmd:option('-LR',              0.1,     'initial learning rate')
    cmd:option('-momentum',        0.9,     'momentum')
-   cmd:option('-weightDecay',     5e-4,    'weight decay')
+   cmd:option('-weightDecay',     0.0003,  'weight decay')
    
    ---------------------- Model options ----------------------
-   cmd:option('-netType',      'wide-resnet', 'Options: vggnet | resnet | wide-resnet')
-   cmd:option('-depth',             28,       'ResNet depth: 6n+4', 'number')
-   cmd:option('-widen_factor',      10,       'Wide-Resnet width', 'number')
-   cmd:option('-dropout',           0,        'Dropout rate')
-   cmd:option('-shortcutType',      '',       'Options: A | B | C')
+   cmd:option('-netType',         'wide-resnet', 'Options: vggnet | resnet | wide-resnet')
+   cmd:option('-depth',           28,         'ResNet depth: 6n+4', 'number')
+   cmd:option('-widen_factor',    10,         'Wide-Resnet width', 'number')
+   cmd:option('-dropout',         0.3,        'Dropout rate')
+   cmd:option('-shortcutType',    '',         'Options: A | B | C')
    cmd:option('-retrain',         'none',     'fine-tuning, Path to model to retrain with')
    cmd:option('-optimState',      'none',     'Path to an optimState to reload from')
    
