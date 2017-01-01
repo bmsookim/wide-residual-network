@@ -66,6 +66,10 @@ local bestTop1, bestTop5 = 0, 0
 
 -- Training iteration
 for epoch = startEpoch, opt.nEpochs do
+    -- Set up manual RNG seeds
+    torch.manualSeed(opt.manualSeed + epoch)
+    cutorch.manualSeedAll(opt.manualSeed + epoch)
+
     -- Train for a single epoch
     local trainTop1, trainTop5, trainLoss = trainer:train(epoch, trainLoader)
 

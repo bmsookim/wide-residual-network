@@ -47,7 +47,7 @@ function Trainer:train(epoch, dataloader)
    local top1Sum, top5Sum, lossSum = 0.0, 0.0, 0.0
    local N = 0
 
-   print(sys.COLORS.Blue..'\n => Training epoch # ' .. epoch..sys.COLORS.none)
+   print('\n Epoch # ')
    -- set the batch norm to training mode
    self.model:training()
    local trainTime = 0.0
@@ -81,10 +81,10 @@ function Trainer:train(epoch, dataloader)
       if n == trainSize then
           if self.opt.top5_display then
               print((' | [#%3d][training report]\tTop1 %6.3f%s  Top5 %6.3f%s  Loss %1.4f  Time %.3f')
-              :format(epoch, top1, '%', top5, '%', trainTime, loss))
+              :format(epoch, top1, '%', top5, '%', loss, trainTime))
           else
               print((' | [#%3d][training report]\tTop1 %6.3f%s  Loss %1.4f  Time %.3f')
-              :format(epoch, top1, '%', trainTime, loss))
+              :format(epoch, top1, '%', loss, trainTime))
           end
       else
           trainTime = trainTime + timer:time().real + dataTime
@@ -191,9 +191,9 @@ function Trainer:learningRate(epoch)
     -- Learning rate according to training schedule
     local decay = 0
     if self.opt.dataset == 'cifar10' then 
-        decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 60 and 1 or 0
+        decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 80 and 1 or 0
     elseif self.opt.dataset == 'cifar100' then 
-        decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 60 and 1 or 0
+        decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 80 and 1 or 0
     end
     return self.opt.LR * math.pow(0.2, decay)
 end

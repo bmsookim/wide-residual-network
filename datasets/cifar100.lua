@@ -50,9 +50,10 @@ local meanstd = {
 function CifarDataset:preprocess()
     if self.split == 'train' then
         return t.Compose{
+            t.Scale(36),
             t.ColorNormalize(meanstd),
             t.HorizontalFlip(0.5),
-            t.RandomCrop(32, 4),
+            t.RandomCrop(32, 0),
         }
     elseif self.split == 'val' then
         return t.ColorNormalize(meanstd)
