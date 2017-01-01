@@ -47,7 +47,7 @@ function Trainer:train(epoch, dataloader)
    local top1Sum, top5Sum, lossSum = 0.0, 0.0, 0.0
    local N = 0
 
-   print('\n Epoch # ')
+   print('\n => Training Epoch # '..epoch)
    -- set the batch norm to training mode
    self.model:training()
    local trainTime = 0.0
