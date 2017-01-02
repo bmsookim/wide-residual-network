@@ -82,7 +82,7 @@ for epoch = startEpoch, opt.nEpochs do
         if opt.top5_display then
             io.write(c..'  (Top5): ', string.format(c..'%5.2f', testTop5)..'%')
         end
-        io.write(sys.COLORS.none'\n')
+        io.write(sys.COLORS.none..'\n')
     end
 
     -- Save the model if it is the current best model
