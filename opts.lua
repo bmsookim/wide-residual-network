@@ -46,7 +46,7 @@ function M.parse(arg)
    ---------------------- Optimization options ---------------
    cmd:option('-LR',              0.1,     'initial learning rate')
    cmd:option('-momentum',        0.9,     'momentum')
-   cmd:option('-weightDecay',     0.0003,  'weight decay')
+   cmd:option('-weightDecay',     0.0005,  'weight decay')
    
    ---------------------- Model options ----------------------
    cmd:option('-netType',         'wide-resnet', 'Options: vggnet | resnet | wide-resnet')
