@@ -20,7 +20,7 @@ function M.parse(arg)
    cmd:text('Options:')
    ---------------------- General options --------------------
    cmd:option('-data',       '',         'Path to dataset')
-   cmd:option('-dataset',    '',         'Options: cifar10 | cifar100')
+   cmd:option('-dataset',    '',         'Options: cifar10 | cifar100 | svhn')
    cmd:option('-manualSeed', 0,          'Manually set RNG seed')
    cmd:option('-nGPU',       2,          'Number of GPUs to use by default')
    cmd:option('-backend',    'cudnn',    'Options: cudnn | cunn')
@@ -28,7 +28,7 @@ function M.parse(arg)
    cmd:option('-gen',        'gen',      'Path to save generated files')
    
    ---------------------- Dataloader options -----------------
-   cmd:option('-nThreads',        16, 'number of data loading threads')
+   cmd:option('-nThreads',        4, 'number of data loading threads')
    
    ---------------------- Training options -------------------
    cmd:option('-nEpochs',         0,       'Number of total epochs to run')
@@ -95,12 +95,16 @@ function M.parse(arg)
    if not paths.dirp(opt.save) and not paths.mkdir(opt.save) then
       cmd:error('error: unable to create checkpoint directory: ' .. opt.save .. '\n')
    end
-
+   
    if opt.dataset == 'cifar10' then
       -- Default shortcutType=A and nEpochs=200
       opt.shortcutType = opt.shortcutType == '' and 'A' or opt.shortcutType
       opt.nEpochs = opt.nEpochs == 0 and 200 or opt.nEpochs
    elseif opt.dataset == 'cifar100' then
+      -- Default shortcutType=A and nEpochs=200
+      opt.shortcutType = opt.shortcutType == '' and 'A' or opt.shortcutType
+      opt.nEpochs = opt.nEpochs == 0 and 200 or opt.nEpochs
+   elseif opt.dataset == 'svhn' then
       -- Default shortcutType=A and nEpochs=200
       opt.shortcutType = opt.shortcutType == '' and 'A' or opt.shortcutType
       opt.nEpochs = opt.nEpochs == 0 and 200 or opt.nEpochs
