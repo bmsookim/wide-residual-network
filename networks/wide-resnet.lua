@@ -112,6 +112,24 @@ local function createModel(opt)
         model:add(Avg(8, 8, 1, 1))
         model:add(nn.View(nStages[4]):setNumInputDims(3))
         model:add(nn.Linear(nStages[4], 100))
+    elseif opt.dataset == 'svhn' then
+        -- Model type specifies number of layers for SVHN model
+        assert((depth-4) % 6 == 0, 'depth should be 6n+4')
+        local n = (depth-4) / 6
+        local k = opt.widen_factor
+        print(' | Wide-ResNet-' .. depth .. 'x' .. k .. ' SVHN')
+        local nStages = torch.Tensor{16, 16*k, 32*k, 64*k}
+
+        -- The wide-resnet SVHN model
+        model:add(Convolution(3,nStages[1],3,3,1,1,1,1)) -- one conv at the beginning (spatial size: 32x32)
+        model:add(wide_layer(wide_basic, nStages[1], nStages[2], n, 1)) -- Stage 1 (spatial size: 32x32)
+        model:add(wide_layer(wide_basic, nStages[2], nStages[3], n, 2)) -- Stage 2 (spatial size: 16x16)
+        model:add(wide_layer(wide_basic, nStages[3], nStages[4], n, 2)) -- Stage 3 (spatial size: 8x8)
+        model:add(SBatchNorm(nStages[4]))
+        model:add(ReLU(true))
+        model:add(Avg(8, 8, 1, 1))
+        model:add(nn.View(nStages[4]):setNumInputDims(3))
+        model:add(nn.Linear(nStages[4], 10))
     else
         error('invalid dataset: ' .. opt.dataset)
     end

@@ -194,6 +194,8 @@ function Trainer:learningRate(epoch)
         decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 60 and 1 or 0
     elseif self.opt.dataset == 'cifar100' then 
         decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 60 and 1 or 0
+    elseif self.opt.dataset == 'svhn' then
+        decay = epoch >= 160 and 3 or epoch >= 120 and 2 or epoch >= 60 and 1 or 0
     end
     return self.opt.LR * math.pow(0.2, decay)
 end

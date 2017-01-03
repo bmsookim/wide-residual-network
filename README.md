@@ -22,7 +22,7 @@ $ luarocks install optnet
 - scripts       : Directory where the run file scripts are contained
 
 ## How to run
-You can train each dataset of either cifar10, cifar100 by running the script below.
+You can train each dataset of either cifar10, cifar100, svhn by running the script below.
 ```bash
 $ sudo sh scripts/[:dataset]_train.sh
 
@@ -30,7 +30,7 @@ $ sudo sh scripts/[:dataset]_train.sh
 $ sudo sh scripts/cifar10_train.sh
 ```
 
-You can test your own trained model of either cifar10, cifar100 by running the script below.
+You can test your own trained model of either cifar10, cifar100, svhn by running the script below.
 ```bash
 $ sudo sh scripts/[:dataset]_test.sh
 ```
@@ -38,7 +38,7 @@ $ sudo sh scripts/[:dataset]_test.sh
 ## Best Results
 |   Dataset   | network           | dropout | Optimizer| Memory | epoch | per epoch    | Top1 acc(%)|
 |:-----------:|:-----------------:|:-------:|----------|:------:|:-----:|:------------:|:----------:|
-| CIFAR-10    | wide-resnet 40x14 |   0.3   | Momentum | 15.06G | 200   | 4 min 10 sec |  **96.44** |
+| CIFAR-10    | wide-resnet 40x14 |   0.3   | Momentum | 14.21G | 200   | 4 min 10 sec |  **96.44** |
 | CIFAR-100   | wide-resnet 28x20 |   0.3   | Momentum | 15.06G | 200   | 4 min 05 sec |  **82.38** |
 
 ## Implementation Details
@@ -84,3 +84,10 @@ Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 | wide-resnet 40x10 |   0.3   |   meanstd   | 8.93G |   -   | 3 min 06 sec |    81.47   |    95.65    |
 | wide-resnet 40x14 |   0.3   |   meanstd   | 7.39G | 6.46G | 3 min 23 sec |    81.83   |    95.50    |
 
+## SVHN Results
+
+![alt tag](IMAGES/svhn_image.png)
+
+Below is the result of the test set accrucay for **SVHN dataset** training.
+
+**Accuracy is the average of 5 runs**
