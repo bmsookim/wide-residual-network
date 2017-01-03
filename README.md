@@ -45,6 +45,7 @@ $ sudo sh scripts/[:dataset]_test.sh
 ## Implementation Details
 
 * CIFAR-10, CIFAR-100
+
 |   epoch   | learning rate |  weight decay | Optimizer |
 |:---------:|:-------------:|:-------------:|:---------:|
 |   0 ~ 60  |      0.1      |     0.0005    | Momentum  |
@@ -53,6 +54,7 @@ $ sudo sh scripts/[:dataset]_test.sh
 | 161 ~ 200 |     0.0008    |     0.0005    | Momentum  |
 
 * SVHN
+
 |   epoch   | learning rate |  weight decay | Optimizer |
 |:---------:|:-------------:|:-------------:|:---------:|
 |   0 ~ 80  |      0.01     |     0.0005    | Momentum  |
