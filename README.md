@@ -1,4 +1,4 @@
-# wide-residual-network
+# Wide Residual Networks
 Wide-residual network implementations for cifar10, cifar100, and other kaggle challenges
 Torch Implementation of Sergey Zagoruyko's [Wide Residual Networks](https://arxiv.org/pdf/1605.07146v2.pdf)
 
@@ -46,20 +46,20 @@ $ sudo sh scripts/[:dataset]_test.sh
 
 * CIFAR-10, CIFAR-100
 
-|   epoch   | learning rate |  weight decay | Optimizer |
-|:---------:|:-------------:|:-------------:|:---------:|
-|   0 ~ 60  |      0.1      |     0.0005    | Momentum  |
-|  61 ~ 120 |      0.02     |     0.0005    | Momentum  |
-| 121 ~ 160 |     0.004     |     0.0005    | Momentum  |
-| 161 ~ 200 |     0.0008    |     0.0005    | Momentum  |
+|   epoch   | learning rate |  weight decay | Optimizer | Momentum | Nesterov |
+|:---------:|:-------------:|:-------------:|:---------:|:--------:|:--------:|
+|   0 ~ 60  |      0.1      |     0.0005    | Momentum  |    0.9   |   true   |
+|  61 ~ 120 |      0.02     |     0.0005    | Momentum  |    0.9   |   true   |
+| 121 ~ 160 |     0.004     |     0.0005    | Momentum  |    0.9   |   true   |
+| 161 ~ 200 |     0.0008    |     0.0005    | Momentum  |    0.9   |   true   |
 
 * SVHN
 
-|   epoch   | learning rate |  weight decay | Optimizer |
-|:---------:|:-------------:|:-------------:|:---------:|
-|   0 ~ 80  |      0.01     |     0.0005    | Momentum  |
-|  81 ~ 120 |     0.001     |     0.0005    | Momentum  |
-| 121 ~ 160 |     0.0001    |     0.0005    | Momentum  |
+|   epoch   | learning rate |  weight decay | Optimizer | Momentum | Nesterov |
+|:---------:|:-------------:|:-------------:|:---------:|:--------:|:--------:|
+|   0 ~ 80  |      0.01     |     0.0005    | Momentum  |    0.9   |   true   |
+|  81 ~ 120 |     0.001     |     0.0005    | Momentum  |    0.9   |   true   |
+| 121 ~ 160 |     0.0001    |     0.0005    | Momentum  |    0.9   |   true   |
 
 
 ## CIFAR-10 Results
@@ -73,6 +73,7 @@ Below is the result of the test set accuracy for **CIFAR-10 dataset** training.
 | network           | dropout | preprocess | GPU:0 | GPU:1 | per epoch    | accuracy(%) |
 |:-----------------:|:-------:|:----------:|:-----:|:-----:|:------------:|:-----------:|
 | pre-ResNet-1001   |    0    |   meanstd  |   -   |   -   | 3 min 25 sec |    95.08    |
+| wide-resnet 40x4  |    0    |   meanstd  |   -   |   -   |              |             |
 | wide-resnet 28x10 |    0    |     ZCA    | 5.90G |   -   | 2 min 03 sec |    95.84    |
 | wide-resnet 28x10 |    0    |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.15    |
 | wide-resnet 28x10 |   0.3   |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.30    |
@@ -91,6 +92,7 @@ Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 | network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)| Top5 acc(%) |
 |:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|:-----------:|
 | pre-ResNet-1001   |    0    |   meanstd   |   -   |   -   | 3 min 25 sec |    77.29   |    93.44    |
+| wide-resnet 40x4  |    0    |   meanstd   |       |       |              |            |             |
 | wide-resnet 28x10 |    0    |     ZCA     | 5.90G |   -   | 2 min 03 sec |    80.03   |    95.01    |
 | wide-resnet 28x10 |    0    |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.01   |    95.44    |
 | wide-resnet 28x10 |   0.3   |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.21   |    95.22    |
@@ -108,7 +110,7 @@ Below is the result of the test set accrucay for **SVHN dataset** training.
 
 | network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)| Top5 acc(%) |
 |:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|:-----------:|
-| wide-resnet 10x8  |   0.3   |   meanstd   |   -   |   -   |   min    sec |            |             |
-| wide-resnet 10x10 |   0.3   |   meanstd   |   -   |   -   |   min    sec |            |             |
-| wide-resnet 16x8  |   0.3   |   meanstd   |   -   |   -   |   min    sec |            |             |
+| wide-resnet 10x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |             |
+| wide-resnet 16x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |             |
+| wide-resnet 22x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |             |
 

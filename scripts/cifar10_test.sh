@@ -18,4 +18,5 @@ th main.lua \
     -testOnly true \
     -depth ${depth} \
     -widen_factor ${width} \
+    -nExperiment ${experiment_number} \
     | tee $save/log_${experiment_number}.txt

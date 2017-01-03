@@ -36,7 +36,6 @@ function M.parse(arg)
    cmd:option('-batchSize',       128,     'mini-batch size (1 = pure stochastic)')
    cmd:option('-top5_display',    'false', 'display top5 accuracy')
    cmd:option('-testOnly',        'false', 'Run on validation set only')
-   cmd:option('-tenCrop',         'false', 'Ten-crop testing')
    
    ---------------------- Checkpoints options ----------------
    cmd:option('-save',            'modelState', 'Directory in which to save checkpoints')
@@ -53,6 +52,7 @@ function M.parse(arg)
    cmd:option('-depth',           28,         'ResNet depth: 6n+4', 'number')
    cmd:option('-widen_factor',    10,         'Wide-Resnet width', 'number')
    cmd:option('-dropout',         0.3,        'Dropout rate')
+   cmd:option('-nExperiment',     1,          'Number of experiment for ensemble')
    cmd:option('-shortcutType',    '',         'Options: A | B | C')
    cmd:option('-retrain',         'none',     'fine-tuning, Path to model to retrain with')
    cmd:option('-optimState',      'none',     'Path to an optimState to reload from')
@@ -68,7 +68,6 @@ function M.parse(arg)
 
    opt.testOnly = opt.testOnly ~= 'false'
    opt.saveLatest = opt.saveLatest ~= 'false'
-   opt.tenCrop = opt.tenCrop ~= 'false'
    opt.shareGradInput = opt.shareGradInput ~= 'false'
    opt.optnet = opt.optnet ~= 'false'
    opt.resetClassifier = opt.resetClassifier ~= 'false'
@@ -76,19 +75,21 @@ function M.parse(arg)
    opt.nGPU = cutorch.getDeviceCount()
 
    if opt.netType == 'wide-resnet' then 
-       opt.save = opt.save..'/'..opt.dataset..'/'..opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'
+       opt.save = opt.save..'/'..opt.dataset..'/'..
+       opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'..opt.nExperiment..'/'
        if opt.resume ~= '' then 
-           opt.resume = opt.resume..'/'..opt.dataset..'/'..opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'
+           opt.resume = opt.resume..'/'..opt.dataset..'/'..
+           opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'..opt.nExperiment..'/'
        end
    elseif opt.netType == 'resnet' then
-       opt.save = opt.save..'/'..opt.dataset..'/'..opt.netType..'-'..opt.depth..'/'
+       opt.save = opt.save..'/'..opt.dataset..'/'..opt.netType..'-'..opt.depth..'/'..opt.nExperiment..'/'
        if opt.resume ~= '' then
-           opt.resume = opt.resume..'/'..opt.dataset..'/'..opt.netType..'-'..opt.depth..'/'
+           opt.resume = opt.resume..'/'..opt.dataset..'/'..opt.netType..'-'..opt.depth..'/'..opt.nExperiment..'/'
        end
    else
-       opt.save = opt.save..'/'..opt.dataset..'/'..opt.netType..'/'
+       opt.save = opt.save..'/'..opt.dataset..'/'..opt.netType..'/'..opt.nExperiment..'/'
        if opt.resume ~= '' then
-           opt.resume = opt.resume..'/'..opt.dataset..'/'..opt.netType..'/'
+           opt.resume = opt.resume..'/'..opt.dataset..'/'..opt.netType..'/'..opt.nExperiment..'/'
        end
    end
 

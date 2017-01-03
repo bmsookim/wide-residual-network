@@ -3,6 +3,7 @@ export netType='wide-resnet'
 export depth=28
 export width=10
 export dataset='cifar10'
+export experiment_num=2
 mkdir -p modelState
 
 th main.lua \
@@ -14,3 +15,4 @@ th main.lua \
     -testOnly false \
     -depth ${depth} \
     -widen_factor ${width} \
+    -nExperiment ${experiment_num} \

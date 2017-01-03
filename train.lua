@@ -107,7 +107,6 @@ function Trainer:test(epoch, dataloader)
     local dataTimer = torch.Timer()
     local size = dataloader:size()
 
-    local nCrops = self.opt.tenCrop and 10 or 1
     local top1Sum, top5Sum = 0.0, 0.0
     local N = 0
 
@@ -121,10 +120,10 @@ function Trainer:test(epoch, dataloader)
         self:copyInputs(sample)
 
         local output = self.model:forward(self.input):float()
-        local batchSize = output:size(1) / nCrops
+        local batchSize = output:size(1)
         local loss = self.criterion:forward(self.model.output, self.target)
 
-        local top1, top5 = self:computeScore(output, sample.target, nCrops)
+        local top1, top5 = self:computeScore(output, sample.target)
         top1Sum = top1Sum + top1*batchSize
         top5Sum = top5Sum + top5*batchSize
         N = N + batchSize
@@ -152,12 +151,7 @@ function Trainer:test(epoch, dataloader)
 end
 
 -- Scoring Process
-function Trainer:computeScore(output, target, nCrops)
-    if nCrops > 1 then
-        -- Sum over crops
-        output = output:view(output:size(1) / nCrops, nCrops, output:size(2)):sum(2):squeeze(2)
-    end
-    
+function Trainer:computeScore(output, target)
     -- Coputes the top1 and top5 error rate
     local batchSize = output:size(1)
     local _ , predictions = output:float():sort(2, true) -- sort in descending orders
