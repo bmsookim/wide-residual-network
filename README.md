@@ -73,7 +73,6 @@ Below is the result of the test set accuracy for **CIFAR-10 dataset** training.
 | network           | dropout | preprocess | GPU:0 | GPU:1 | per epoch    | accuracy(%) |
 |:-----------------:|:-------:|:----------:|:-----:|:-----:|:------------:|:-----------:|
 | pre-ResNet-1001   |    0    |   meanstd  |   -   |   -   | 3 min 25 sec |    95.08    |
-| wide-resnet 40x4  |    0    |   meanstd  |   -   |   -   |              |             |
 | wide-resnet 28x10 |    0    |     ZCA    | 5.90G |   -   | 2 min 03 sec |    95.84    |
 | wide-resnet 28x10 |    0    |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.15    |
 | wide-resnet 28x10 |   0.3   |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.30    |
@@ -92,7 +91,6 @@ Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 | network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)| Top5 acc(%) |
 |:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|:-----------:|
 | pre-ResNet-1001   |    0    |   meanstd   |   -   |   -   | 3 min 25 sec |    77.29   |    93.44    |
-| wide-resnet 40x4  |    0    |   meanstd   |       |       |              |            |             |
 | wide-resnet 28x10 |    0    |     ZCA     | 5.90G |   -   | 2 min 03 sec |    80.03   |    95.01    |
 | wide-resnet 28x10 |    0    |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.01   |    95.44    |
 | wide-resnet 28x10 |   0.3   |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.21   |    95.22    |
@@ -106,7 +104,7 @@ Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 
 Below is the result of the test set accrucay for **SVHN dataset** training.
 
-**Accuracy is the average of 5 runs**
+**Accuracy is the result of 1 run**
 
 | network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)| Top5 acc(%) |
 |:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|:-----------:|

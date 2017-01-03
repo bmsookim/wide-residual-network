@@ -2,6 +2,7 @@
 export netType='wide-resnet'
 export depth=16
 export width=8
+export experiment_number=1
 export dataset='svhn'
 mkdir -p modelState
 
@@ -15,3 +16,4 @@ th main.lua \
     -testOnly false \
     -depth ${depth} \
     -widen_factor ${width} \
+    -nExperiment ${experiment_number} \
