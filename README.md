@@ -1,6 +1,6 @@
 # wide-residual-network
 Wide-residual network implementations for cifar10, cifar100, and other kaggle challenges
-Torch Implementation
+Torch Implementation of Sergey Zagoruyko's [Wide Residual Networks](https://arxiv.org/pdf/1605.07146v2.pdf)
 
 ## Requirements
 See the [installation instruction](INSTALL.md) for a step-by-step installation guide.
@@ -91,3 +91,10 @@ Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 Below is the result of the test set accrucay for **SVHN dataset** training.
 
 **Accuracy is the average of 5 runs**
+
+| network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)| Top5 acc(%) |
+|:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|:-----------:|
+| wide-resnet 10x8  |   0.3   |   meanstd   |   -   |   -   |  min  sec |      |       |
+| wide-resnet 10x10 |   0.3   |   meanstd   |   -   |   -   |  min  sec |      |        |
+| wide-resnet 16x8  |   0.3   |   meanstd   |   -   |   -   |  min  sec |      |        |
+
