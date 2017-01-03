@@ -107,7 +107,7 @@ function M.parse(arg)
    elseif opt.dataset == 'svhn' then
       -- Default shortcutType=A and nEpochs=200
       opt.shortcutType = opt.shortcutType == '' and 'A' or opt.shortcutType
-      opt.nEpochs = opt.nEpochs == 0 and 200 or opt.nEpochs
+      opt.nEpochs = opt.nEpochs == 0 and 160 or opt.nEpochs
    else
       cmd:error('unknown dataset: ' .. opt.dataset)
    end
