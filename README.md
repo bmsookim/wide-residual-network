@@ -40,14 +40,24 @@ $ sudo sh scripts/[:dataset]_test.sh
 |:-----------:|:-----------------:|:-------:|----------|:------:|:-----:|:------------:|:----------:|
 | CIFAR-10    | wide-resnet 40x14 |   0.3   | Momentum | 14.21G | 200   | 4 min 10 sec |  **96.44** |
 | CIFAR-100   | wide-resnet 28x20 |   0.3   | Momentum | 15.06G | 200   | 4 min 05 sec |  **82.38** |
+| SVHN        | wide-resnet 16x8  |   0.4   | Momentum |        |       |              |            |
 
 ## Implementation Details
+
+* CIFAR-10, CIFAR-100
 |   epoch   | learning rate |  weight decay | Optimizer |
 |:---------:|:-------------:|:-------------:|:---------:|
 |   0 ~ 60  |      0.1      |     0.0005    | Momentum  |
 |  61 ~ 120 |      0.02     |     0.0005    | Momentum  |
 | 121 ~ 160 |     0.004     |     0.0005    | Momentum  |
 | 161 ~ 200 |     0.0008    |     0.0005    | Momentum  |
+
+* SVHN
+|   epoch   | learning rate |  weight decay | Optimizer |
+|:---------:|:-------------:|:-------------:|:---------:|
+|   0 ~ 80  |      0.01     |     0.0005    | Momentum  |
+|  81 ~ 120 |     0.001     |     0.0005    | Momentum  |
+| 121 ~ 160 |     0.0001    |     0.0005    | Momentum  |
 
 
 ## CIFAR-10 Results
