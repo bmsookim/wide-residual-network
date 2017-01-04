@@ -40,7 +40,7 @@ function Tester:test(epoch, dataloader)
     local N = 0
 
     -- Set the batch normalization to validation mode : moving average 0.9
-    for i=1,5 do
+    for i=1,self.opt.nEnsemble do
         self.model_tensor[i]:evaluate()
     end
 
@@ -52,8 +52,18 @@ function Tester:test(epoch, dataloader)
 
         sum = 0.0
 
-        for i=1,5 do
-            sum = sum + self.model_tensor[i]:forward(self.input):float()
+        for i=1,self.opt.nEnsemble do
+            tmp_out = self.model_tensor[i]:forward(self.input):float()
+            tmp_mn = tmp_out:mean()
+            tmp_std = tmp_out:std()
+            tmp = (tmp_out-tmp_mn)/tmp_std
+            if i==3 then
+                tmp=tmp*1.1
+            elseif i==2 then
+                tmp=tmp*0.9
+            end
+            sum = sum+tmp
+            -- sum = sum + self.model_tensor[i]:forward(self.input):float()
         end
 
         local output = sum
