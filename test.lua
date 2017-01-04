@@ -52,14 +52,13 @@ function Tester:test(epoch, dataloader)
 
         local output1 = self.model1:forward(self.input):float()
         local output2 = self.model2:forward(self.input):float()
-        local output = (output1 + output2)/2
+        local output = (output1 + output2)
         local batchSize = output:size(1)
 
         local top1, top5 = self:computeScore(output, sample.target)
         top1Sum = top1Sum + top1*batchSize
         top5Sum = top5Sum + top5*batchSize
         N = N + batchSize
-        elapsed_time = elapsed_time + timer:time().real + dataTime
 
         timer:reset()
         dataTimer:reset()

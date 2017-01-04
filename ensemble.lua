@@ -18,7 +18,8 @@ local DataLoader = require 'dataloader'
 local models = require 'networks/init'
 local Tester = require 'test'
 local opts = require 'opts'
-local checkpoints = require 'checkpoints'
+local checkpoints1 = require 'checkpoints'
+local checkpoints2 = require 'checkpoints'
 
 torch.setdefaulttensortype('torch.FloatTensor')
 torch.setnumthreads(1)
@@ -27,14 +28,19 @@ local opt = opts.parse(arg)
 torch.manualSeed(opt.manualSeed)
 cutorch.manualSeedAll(opt.manualSeed)
 
-local checkpoint, optimState = checkpoints.best(opt)
+opt.depth = 28
+opt.widen_factor = 10
+opt.nExperiment = 3
+opt.resume = 'modelState/'..opt.dataset..'/'..
+            opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'..opt.nExperiment..'/'
+local checkpoint1, optimState = checkpoints1.best(opt)
+local model1, criterion = models.setup(opt, checkpoint1)
 
-opt.depth = 10
-opt.widen_factor = 1
-local model1, criterion = models.setup(opt, checkpoint)
-
-opt.widen_factor = 1
-local model2, criterion = models.setup(opt, checkpoint)
+opt.nExperiment = 4
+opt.resume = 'modelState/'..opt.dataset..'/'..
+            opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'..opt.nExperiment..'/'
+local checkpoint2, _ = checkpoints2.best(opt)
+local model2, criterion = models.setup(opt, checkpoint2)
 
 local _, valLoader = DataLoader.create(opt)
 
