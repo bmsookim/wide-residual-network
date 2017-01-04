@@ -1,5 +1,7 @@
-# Wide Residual Networks
+# Wide Residual Networks Using Ensemble
+
 Wide-residual network implementations for cifar10, cifar100, and other kaggle challenges
+
 Torch Implementation of Sergey Zagoruyko's [Wide Residual Networks](https://arxiv.org/pdf/1605.07146v2.pdf)
 
 ## Requirements
@@ -36,11 +38,9 @@ $ sudo sh scripts/[:dataset]_test.sh
 ```
 
 ## Best Results
-|   Dataset   | network              | dropout | Optimizer| Memory | Top1 acc(%)|
-|:-----------:|:--------------------:|:-------:|----------|:------:|:----------:|
-| CIFAR-10    | wide-resnet ensemble |   0.3   | Momentum | 20.21G |  **96.75** |
-| CIFAR-100   | wide-resnet 28x20    |   0.3   | Momentum | 15.06G |  **82.38** |
-| SVHN        | wide-resnet 16x8     |   0.4   | Momentum |        |            |
+|   Dataset   | network      | dropout | Optimizer| Memory | Top1 acc(%)|
+|:-----------:|:------------:|:-------:|----------|:------:|:----------:|
+| CIFAR-10    | Ensemble WRN |   0.3   | Momentum | 20.21G |  **96.75** |
 
 ## Implementation Details
 
@@ -74,11 +74,18 @@ Below is the result of the test set accuracy for **CIFAR-10 dataset** training.
 |:-----------------:|:-------:|:----------:|:-----:|:-----:|:------------:|:-----------:|
 | pre-ResNet-1001   |    0    |   meanstd  |   -   |   -   | 3 min 25 sec |    95.08    |
 | wide-resnet 28x10 |    0    |     ZCA    | 5.90G |   -   | 2 min 03 sec |    95.84    |
-| wide-resnet 28x10 |    0    |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.15    |
-| wide-resnet 28x10 |   0.3   |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.30    |
-| wide-resnet 28x20 |   0.3   |   meanstd  | 8.13G | 6.93G | 4 min 10 sec |    96.24    |
-| wide-resnet 40x10 |   0.3   |   meanstd  | 8.08G |   -   | 3 min 13 sec |    96.28    |
-| wide-resnet 40x14 |   0.3   |   meanstd  | 7.37G | 6.46G | 3 min 23 sec |  **96.44**  |
+| wide-resnet 28x10 |    0    |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.01    |
+| wide-resnet 28x10 |   0.3   |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.19    |
+| wide-resnet 28x20 |   0.3   |   meanstd  | 8.13G | 6.93G | 4 min 10 sec |             |
+| wide-resnet 40x10 |   0.3   |   meanstd  | 8.08G |   -   | 3 min 13 sec |             |
+| wide-resnet 40x14 |   0.3   |   meanstd  | 7.37G | 6.46G | 3 min 23 sec |             |
+
+**Ensemble list**
+
+| model1 | model2 | model3 | model4 | model5 | result |
+|:------:|:------:|:------:|:------:|:------:|:------:|
+| 28x10  | 28x10  | 28x10  | 40x10  | 40x10  |  96.69 |
+| 28x10  | 28x10  | 28x10  | 40x10  | 40x14  |  96.75 |
 
 ## CIFAR-100 Results
 
