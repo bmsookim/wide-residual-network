@@ -36,11 +36,11 @@ $ sudo sh scripts/[:dataset]_test.sh
 ```
 
 ## Best Results
-|   Dataset   | network           | dropout | Optimizer| Memory | epoch | per epoch    | Top1 acc(%)|
-|:-----------:|:-----------------:|:-------:|----------|:------:|:-----:|:------------:|:----------:|
-| CIFAR-10    | wide-resnet 40x14 |   0.3   | Momentum | 14.21G | 200   | 4 min 10 sec |  **96.44** |
-| CIFAR-100   | wide-resnet 28x20 |   0.3   | Momentum | 15.06G | 200   | 4 min 05 sec |  **82.38** |
-| SVHN        | wide-resnet 16x8  |   0.4   | Momentum |        |       |              |            |
+|   Dataset   | network              | dropout | Optimizer| Memory | Top1 acc(%)|
+|:-----------:|:--------------------:|:-------:|----------|:------:|:----------:|
+| CIFAR-10    | wide-resnet ensemble |   0.3   | Momentum | 20.21G |  **96.75** |
+| CIFAR-100   | wide-resnet 28x20    |   0.3   | Momentum | 15.06G |  **82.38** |
+| SVHN        | wide-resnet 16x8     |   0.4   | Momentum |        |            |
 
 ## Implementation Details
 
