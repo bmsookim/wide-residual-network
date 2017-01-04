@@ -6,7 +6,7 @@
 -- wide-residual-networks Torch implementation
 --
 -- Description : test.lua
--- The training code for each datasets.
+-- The testing code for each datasets.
 -- ***********************************************************
 
 local optim = require 'optim'
@@ -15,9 +15,8 @@ local M = {}
 local Tester = torch.class('resnet.Tester', M)
 
 -- Initialize training class
-function Tester:__init(model1, model2, criterion, opt, optimState)
-    self.model1 = model1
-    self.model2 = model2
+function Tester:__init(model_tensor, criterion, opt, optimState)
+    self.model_tensor = model_tensor
     self.criterion = criterion
     self.optimState = optimState or {
         learningRate = opt.LR,
@@ -41,8 +40,9 @@ function Tester:test(epoch, dataloader)
     local N = 0
 
     -- Set the batch normalization to validation mode : moving average 0.9
-    self.model1:evaluate()
-    self.model2:evaluate()
+    for i=1,5 do
+        self.model_tensor[i]:evaluate()
+    end
 
     for n, sample in dataloader:run() do
         local dataTime = dataTimer:time().real
@@ -50,9 +50,13 @@ function Tester:test(epoch, dataloader)
         -- Copy input and target into the GPUs
         self:copyInputs(sample)
 
-        local output1 = self.model1:forward(self.input):float()
-        local output2 = self.model2:forward(self.input):float()
-        local output = (output1 + output2)
+        sum = 0.0
+
+        for i=1,5 do
+            sum = sum + self.model_tensor[i]:forward(self.input):float()
+        end
+
+        local output = sum
         local batchSize = output:size(1)
 
         local top1, top5 = self:computeScore(output, sample.target)

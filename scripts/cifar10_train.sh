@@ -1,7 +1,7 @@
 #!/bin/bash
 export netType='wide-resnet'
-export depth=10
-export width=2
+export depth=28
+export width=10
 export dataset='cifar10'
 export experiment_num=1
 mkdir -p modelState

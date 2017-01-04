@@ -18,39 +18,51 @@ local DataLoader = require 'dataloader'
 local models = require 'networks/init'
 local Tester = require 'test'
 local opts = require 'opts'
-local checkpoints1 = require 'checkpoints'
-local checkpoints2 = require 'checkpoints'
+local checkpoints = require 'checkpoints'
 
 torch.setdefaulttensortype('torch.FloatTensor')
 torch.setnumthreads(1)
 
+-- List of ensemble options
 local opt = opts.parse(arg)
 torch.manualSeed(opt.manualSeed)
 cutorch.manualSeedAll(opt.manualSeed)
 
-opt.depth = 28
-opt.widen_factor = 10
-opt.nExperiment = 3
-opt.resume = 'modelState/'..opt.dataset..'/'..
-            opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'..opt.nExperiment..'/'
-local checkpoint1, optimState = checkpoints1.best(opt)
-local model1, criterion = models.setup(opt, checkpoint1)
+-- ensemble depths
+ens_depth         = {28, 28, 28, 28, 40}
+ens_widen_factor  = {10, 10, 10, 10, 10}
+ens_nExperiment   = {1,   2,  3,  4,  1}
 
-opt.nExperiment = 4
-opt.resume = 'modelState/'..opt.dataset..'/'..
-            opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'..opt.nExperiment..'/'
-local checkpoint2, _ = checkpoints2.best(opt)
-local model2, criterion = models.setup(opt, checkpoint2)
+function set_opt(opt, id)
+    opt.depth = ens_depth[id]
+    opt.widen_factor = ens_widen_factor[id]
+    opt.nExperiment = ens_nExperiment[id]
+    -- assume ensembles are only done for wide-resnets
+    opt.resume = 'modelState/'..opt.dataset..'/'..
+                  opt.netType..'-'..opt.depth..'x'..opt.widen_factor..'/'..opt.nExperiment..'/'
+end
+
+model_tensor = {}
+
+for i=1,5 do
+    set_opt(opt, i)
+    local checkpoint, optimState = checkpoints.best(opt)
+    model_tensor[i], criterion = models.setup(opt, checkpoint)
+end
 
 local _, valLoader = DataLoader.create(opt)
 
-local tester = Tester(model1, model2, criterion, opt, optimState)
+-- Testing ensemble model
+local tester = Tester(model_tensor, criterion, opt, optimState)
 
 local top1, top5 = tester:test(opt.nEpochs, valLoader)
 
 print('\n===============[ Test Result Report ]===============')
 print(' * Dataset\t: '..opt.dataset)
-print(' * Network\t: '..opt.netType..' '..opt.depth..'x'..opt.widen_factor)
+print(' * Ensemble Network : ')
+for i=1,5 do
+    print('   | Network'..i..'\t: '..opt.netType..' '..ens_depth[i]..'x'..ens_widen_factor[i]..', '..ens_nExperiment[i])
+end
 print(' * Dropout\t: '..opt.dropout)
 print(' * nGPU\t\t: '..opt.nGPU)
 print(' * Top1\t\t: '..string.format('%6.3f', top1)..'%')
