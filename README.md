@@ -106,9 +106,10 @@ Below is the result of the test set accrucay for **SVHN dataset** training.
 
 **Accuracy is the result of 1 run**
 
-| network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)| Top5 acc(%) |
-|:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|:-----------:|
-| wide-resnet 10x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |             |
-| wide-resnet 16x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |             |
-| wide-resnet 22x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |             |
+| network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)|
+|:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|
+| wide-resnet 10x1  |   0.4   |   meanstd   | 0.47G | 0.46G | 1 min 37 sec |   93.815   |
+| wide-resnet 10x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |
+| wide-resnet 16x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            | 
+| wide-resnet 22x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |
 
