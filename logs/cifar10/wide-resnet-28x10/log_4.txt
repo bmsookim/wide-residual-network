@@ -1,4 +1,4 @@
-=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-28x10/1/model_181.t7	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-28x10/4/model_196.t7	
 Skipping memory optimization. Network is already optimized for training mode.	
 warning: could not load nccl, falling back to default communication	
 
@@ -7,5 +7,5 @@ warning: could not load nccl, falling back to default communication
  * Network	: wide-resnet 28x10	
  * Dropout	: 0.3	
  * nGPU		: 2	
- * Top1		: 96.220%	
+ * Top1		: 96.230%	
 =====================================================	
