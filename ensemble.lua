@@ -29,9 +29,9 @@ torch.manualSeed(opt.manualSeed)
 cutorch.manualSeedAll(opt.manualSeed)
 
 -- ensemble depths
-ens_depth         = {28, 28, 28, 28, 40}
-ens_widen_factor  = {10, 10, 10, 10, 10}
-ens_nExperiment   = {1,   2,  3,  4,  1}
+ens_depth         = {28, 40, 28, 28, 40, 40}
+ens_widen_factor  = {10, 10, 10, 10, 10, 10}
+ens_nExperiment   = {1,  3,  3,  4,  1,  2}
 
 function set_opt(opt, id)
     opt.depth = ens_depth[id]
@@ -44,7 +44,7 @@ end
 
 model_tensor = {}
 
-for i=1,5 do
+for i=1,opt.nEnsemble do
     set_opt(opt, i)
     local checkpoint, optimState = checkpoints.best(opt)
     model_tensor[i], criterion = models.setup(opt, checkpoint)
@@ -60,7 +60,7 @@ local top1, top5 = tester:test(opt.nEpochs, valLoader)
 print('\n===============[ Test Result Report ]===============')
 print(' * Dataset\t: '..opt.dataset)
 print(' * Ensemble Network : ')
-for i=1,5 do
+for i=1,opt.nEnsemble do
     print('   | Network'..i..'\t: '..opt.netType..' '..ens_depth[i]..'x'..ens_widen_factor[i]..', '..ens_nExperiment[i])
 end
 print(' * Dropout\t: '..opt.dropout)
