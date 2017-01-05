@@ -29,9 +29,11 @@ torch.manualSeed(opt.manualSeed)
 cutorch.manualSeedAll(opt.manualSeed)
 
 -- ensemble depths
-ens_depth         = {28, 40, 28, 28, 40, 40}
-ens_widen_factor  = {10, 10, 10, 10, 10, 10}
-ens_nExperiment   = {1,  3,  3,  4,  1,  2}
+opt.nEnsemble = 11
+opt.batchSize = 8
+ens_depth         = {28, 28, 28, 28, 28, 40, 40, 40, 40, 40, 40}
+ens_widen_factor  = {10, 10, 10, 10, 10, 10, 10, 10, 10, 14, 14}
+ens_nExperiment   = {1,  2,  3,  4,  5,  1,  2,  3,  4 , 1,  2}
 
 function set_opt(opt, id)
     opt.depth = ens_depth[id]
