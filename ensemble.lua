@@ -35,6 +35,7 @@ ens_nExperiment   = torch.Tensor({ 4,  1,  2,  5,  3})
 
 -- get ensemble numbers
 opt.nEnsemble = ens_depth:size(1)
+opt.ensembleMode = 'avg'
 
 function set_opt(opt, id)
     opt.depth = ens_depth[id]

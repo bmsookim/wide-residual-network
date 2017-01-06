@@ -53,8 +53,9 @@ function Tester:test(epoch, dataloader)
         out = 0.0
         for i=1,self.opt.nEnsemble do
             result = self.model_tensor[i]:forward(self.input):float()
-            if(self.opt.ensembleMode == 'sum') then
+            if(self.opt.ensembleMode == 'avg') then
                 tmp = result
+		if(i==3 or i==4) then tmp = tmp * 2.5 end
                 out = out+(tmp)
             elseif(self.opt.ensembleMode == 'max') then
                 if(i==1) then out = result
@@ -65,6 +66,7 @@ function Tester:test(epoch, dataloader)
             end
         end
 
+        if(self.opt.ensembleMode == 'avg') then out = out/self.opt.nEnsemble end
         local output = out
         local batchSize = output:size(1)
 
