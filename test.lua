@@ -65,7 +65,7 @@ function Tester:test(epoch, dataloader)
             end
         end
 
-        local output = sum
+        local output = out
         local batchSize = output:size(1)
 
         local top1, top5 = self:computeScore(output, sample.target)
