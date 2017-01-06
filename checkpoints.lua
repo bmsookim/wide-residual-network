@@ -111,8 +111,6 @@ function checkpoint.save(epoch, model, optimState, isBestModel, opt)
    else
       before_was_best = false
    end
-
-   model:cuda()
 end
 
 return checkpoint
