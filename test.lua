@@ -6,7 +6,7 @@
 -- wide-residual-networks Torch implementation
 --
 -- Description : test.lua
--- The testing code for each datasets.
+-- The testing code for ensembling each datasets.
 -- ***********************************************************
 
 local optim = require 'optim'
@@ -50,12 +50,19 @@ function Tester:test(epoch, dataloader)
         -- Copy input and target into the GPUs
         self:copyInputs(sample)
 
-        sum = 0.0
+        out = 0.0
         for i=1,self.opt.nEnsemble do
-            tmp_out = self.model_tensor[i]:forward(self.input):float()
-            tmp = tmp_out
-            sum = sum+(tmp)
-            -- sum = sum + self.model_tensor[i]:forward(self.input):float()
+            result = self.model_tensor[i]:forward(self.input):float()
+            if(self.opt.ensembleMode == 'sum') then
+                tmp = result
+                out = out+(tmp)
+            elseif(self.opt.ensembleMode == 'max') then
+                if(i==1) then out = result
+                else out = torch.cmax(result, out) end
+            elseif(self.opt.ensembleMode == 'min') then
+                if(i==1) then out = result
+                else out = torch.cmin(result, out) end
+            end
         end
 
         local output = sum
