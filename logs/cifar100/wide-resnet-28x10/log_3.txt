@@ -1,0 +1,11 @@
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-28x10/3/model_157.t7	
+Skipping memory optimization. Network is already optimized for training mode.	
+
+===============[ Test Result Report ]===============	
+ * Dataset	: cifar100	
+ * Network	: wide-resnet 28x10	
+ * Dropout	: 0.3	
+ * nGPU		: 1	
+ * Top1		: 81.090%	
+ * Top5		: 95.320%	
+=====================================================	
