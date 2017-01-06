@@ -29,12 +29,12 @@ torch.manualSeed(opt.manualSeed)
 cutorch.manualSeedAll(opt.manualSeed)
 
 -- ensemble depths
-ens_depth         = torch.Tensor({28, 28, 28, 28, 28, 28, 40, 40, 40, 40, 40, 40, 40})
-ens_widen_factor  = torch.Tensor({10, 10, 10, 10, 10, 20, 10, 10, 10, 10, 10, 14, 14})
-ens_nExperiment   = torch.Tensor({1,  2,  3,  4,  5,  1,  1,  2,  3,  4 , 5,  1,  2})
+ens_depth         = torch.Tensor({28, 28, 28, 28, 28, 28, 28, 40, 40, 40, 40, 40, 40, 40, 40})
+ens_widen_factor  = torch.Tensor({10, 10, 10, 10, 10, 20, 20, 10, 10, 10, 10, 10, 14, 14, 14})
+ens_nExperiment   = torch.Tensor({1,  2,  3,  4,  5,  1,  2,  1,  2,  3,  4 , 5,  1,  2,  3})
 
 -- get ensemble numbers
-opts.nEnsemble = ens_depth:size(1)
+opt.nEnsemble = ens_depth:size(1)
 
 function set_opt(opt, id)
     opt.depth = ens_depth[id]
