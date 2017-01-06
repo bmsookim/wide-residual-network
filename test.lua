@@ -51,18 +51,10 @@ function Tester:test(epoch, dataloader)
         self:copyInputs(sample)
 
         sum = 0.0
-
         for i=1,self.opt.nEnsemble do
             tmp_out = self.model_tensor[i]:forward(self.input):float()
-            tmp_mn = tmp_out:mean()
-            tmp_std = tmp_out:std()
-            tmp = (tmp_out-tmp_mn)/tmp_std
-            if i==3 then
-                tmp=tmp*1.1
-            elseif i==2 then
-                tmp=tmp*0.9
-            end
-            sum = sum+tmp
+            tmp = tmp_out
+            sum = sum+(tmp)
             -- sum = sum + self.model_tensor[i]:forward(self.input):float()
         end
 

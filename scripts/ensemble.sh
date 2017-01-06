@@ -10,4 +10,5 @@ th ensemble.lua \
     -netType ${netType} \
     -batchSize 16 \
     -dropout 0 \
+    -optnet false \
     | tee $save/log_ensemble_${experiment_number}.txt
