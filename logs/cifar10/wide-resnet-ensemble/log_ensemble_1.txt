@@ -1,0 +1,23 @@
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-28x10/4/model_196.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-28x20/1/model_166.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-28x20/2/model_189.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-40x10/5/model_191.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-40x14/3/model_199.t7	
+warning: could not load nccl, falling back to default communication	
+
+===============[ Test Result Report ]===============	
+ * Dataset	: cifar10	
+ * Ensemble Network : 	
+   | Network1	: wide-resnet 28x10, 4	
+   | Network2	: wide-resnet 28x20, 1	
+   | Network3	: wide-resnet 28x20, 2	
+   | Network4	: wide-resnet 40x10, 5	
+   | Network5	: wide-resnet 40x14, 3	
+ * Dropout	: 0	
+ * nGPU		: 2	
+ * Top1		: 96.930%	
+=====================================================	
