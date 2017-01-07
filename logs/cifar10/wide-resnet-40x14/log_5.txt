@@ -1,3 +1,0 @@
-=> Creating model from file: models/wide-resnet.lua	
- | Wide-ResNet-40x14 CIFAR-10	
-warning: could not load nccl, falling back to default communication	
