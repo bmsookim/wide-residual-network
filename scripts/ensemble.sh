@@ -1,7 +1,7 @@
 #!/bin/bash
 export netType='wide-resnet'
 export dataset='cifar10'
-export mode='min'
+export mode='avg'
 export save=logs/${dataset}/${netType}-ensemble
 export experiment_number=1
 mkdir -p $save
@@ -14,4 +14,4 @@ th ensemble.lua \
     -dropout 0 \
     -optnet false \
     -top5_display false \
-    | tee $save/${dataset}/log_ensemble_${experiment_number}.txt
+    | tee $save/log_ensemble_${experiment_number}.txt

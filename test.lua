@@ -55,7 +55,6 @@ function Tester:test(epoch, dataloader)
             result = self.model_tensor[i]:forward(self.input):float()
             if(self.opt.ensembleMode == 'avg') then
                 tmp = result
-		if(i==3 or i==4) then tmp = tmp * 2.5 end
                 out = out+(tmp)
             elseif(self.opt.ensembleMode == 'max') then
                 if(i==1) then out = result
@@ -65,6 +64,9 @@ function Tester:test(epoch, dataloader)
                 else out = torch.cmin(result, out) end
             end
         end
+
+        -- print out progress bar
+	-- xlua.progress(n, size)
 
         if(self.opt.ensembleMode == 'avg') then out = out/self.opt.nEnsemble end
         local output = out
