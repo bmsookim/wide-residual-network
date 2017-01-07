@@ -29,13 +29,19 @@ torch.manualSeed(opt.manualSeed)
 cutorch.manualSeedAll(opt.manualSeed)
 
 -- ensemble depths
+<<<<<<< HEAD
 ens_depth         = torch.Tensor({28, 28, 28, 28, 40, 40, 40})
 ens_widen_factor  = torch.Tensor({20, 20, 20, 20, 10, 14, 14})
 ens_nExperiment   = torch.Tensor({ 2,  3,  4,  5,  5,  3,  4})
+=======
+ens_depth         = torch.Tensor({28, 28, 40, 40, 40})
+ens_widen_factor  = torch.Tensor({20, 20, 10, 14, 14})
+ens_nExperiment   = torch.Tensor({ 1,  2,  5,  3,  4})
+>>>>>>> 1330b24f4aeb8fc9b968adc54ab321e8d5995f04
 
 -- get ensemble numbers
 opt.nEnsemble = ens_depth:size(1)
-opt.ensembleMode = 'avg'
+opt.ensembleMode = 'min'
 
 function set_opt(opt, id)
     opt.depth = ens_depth[id]
@@ -48,6 +54,7 @@ end
 
 model_tensor = {}
 
+local timer = torch.Timer()
 for i=1,opt.nEnsemble do
     set_opt(opt, i)
     local checkpoint, optimState = checkpoints.best(opt)
@@ -73,4 +80,5 @@ print(' * Top1\t\t: '..string.format('%6.3f', top1)..'%')
 if opt.top5_display then
     print(' * Top5\t\t: '..string.format('%6.3f', top5)..'%')
 end
+print(' * Elapsed time\t: '..xlua.formatTime(timer:time().real))
 print('=====================================================')
