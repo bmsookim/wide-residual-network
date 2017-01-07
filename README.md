@@ -35,10 +35,11 @@ CIFAR-10's top1 accuracy reaches to **97.12%** only with average ensembling with
 
 Combining weight adjustions for each model will promise a more improved accuracy.
 
-|   Dataset   | network      | Top1 Err(%)| Top5 Err(%) |
-|:-----------:|:------------:|:----------:|:-----------:|
-| CIFAR-10    | Ensemble-WRN |  **2.88%** |      -      |
-| CIFAR-100   | Ensemble-WRN | **16.44%** |  **3.57%**  |
+|   Dataset   | network      | Top Err(%) |
+|:-----------:|:------------:|:----------:|
+| CIFAR-10    | Ensemble-WRN |  **2.88%** |
+| CIFAR-100   | Ensemble-WRN |  **3.57%** |
+| SVHN        |     -        |     -      |
 
 ## How to run
 You can train each dataset of either cifar10, cifar100, svhn by running the script below.
@@ -57,21 +58,24 @@ $ sudo sh scripts/[:dataset]_test.sh
 To ensemble your multiple trained models of different parameters, follow the steps below.
 ```bash
 $ vi ensemble.lua
-
 # Press :32 in vi, which will move your cursor to line 32
-# put each depth, width, and experiment number of the models you want to ensemble.
 ens_depth         = torch.Tensor({28, 28, 28, 28, 40, 40, 40})
 ens_widen_factor  = torch.Tensor({20, 20, 20, 20, 10, 14, 14})
 ens_nExperiment   = torch.Tensor({ 2,  3,  4,  5,  5,  3,  4})
+```
 
-# press :wq and exit vi
+After you set each parameters for your models, open [scripts/ensemble.sh](scripts/ensemble.sh)
+
+```bash
 $ vi scripts/ensemble.sh
-
 # on the second line
 export dataset=[:dataset] # put the dataset you want to ensemble your models.
 export mode=[:mode]       # you can either choose 'avg', 'min', 'max'
+```
 
-# press :wq and exit vi
+Finally, run the script file.
+
+```bash
 $ ./scripts/ensemble.sh
 ```
 ## Implementation Details
