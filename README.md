@@ -4,11 +4,10 @@ Wide-residual network implementations for cifar10, cifar100, and other kaggle ch
 
 Torch Implementation of Sergey Zagoruyko's [Wide Residual Networks](https://arxiv.org/pdf/1605.07146v2.pdf)
 
-In order to figure out the influence of 'width' & 'height' does on wide-residual networks,
-
-several experiments where conducted on each settings of different weights and heights.
-
-It turns out that increasing the number of features gave more positive influence to the model than making the model deeper. 
+In order to figure out the what 'width' & 'height' does on wide-residual networks, 
+several experiments were conducted on different settings of different weights and heights.
+It turns out that **increasing the number of filters(increasing width)** gave more positive influence 
+to the model than making the model deeper. 
 
 ## Requirements
 See the [installation instruction](INSTALL.md) for a step-by-step installation guide.
@@ -35,11 +34,10 @@ CIFAR-10's top1 accuracy reaches to **97.12%** only with average ensembling with
 
 Combining weight adjustions for each model will promise a more improved accuracy.
 
-|   Dataset   | network      | Top Err(%) |
-|:-----------:|:------------:|:----------:|
-| CIFAR-10    | Ensemble-WRN |  **2.88%** |
-| CIFAR-100   | Ensemble-WRN |  **3.57%** |
-| SVHN        |     -        |     -      |
+|   Dataset   | network      |   Top Err(%)  |
+|:-----------:|:------------:|:-------------:|
+| CIFAR-10    | Ensemble-WRN |  **2.88% @1** |
+| CIFAR-100   | Ensemble-WRN |  **3.57% @5** |
 
 ## How to run
 You can train each dataset of either cifar10, cifar100, svhn by running the script below.
