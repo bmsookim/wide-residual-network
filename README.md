@@ -48,19 +48,17 @@ To ensemble your multiple trained models of different parameters, follow the ste
 $ vi ensemble.lua
 
 # Press :32 in vi, which will move your cursor to line 32
+# put each depth, width, and experiment number of the models you want to ensemble.
 ens_depth         = torch.Tensor({28, 28, 28, 28, 40, 40, 40})
 ens_widen_factor  = torch.Tensor({20, 20, 20, 20, 10, 14, 14})
 ens_nExperiment   = torch.Tensor({ 2,  3,  4,  5,  5,  3,  4})
 
-# put each depth, width, and experiment number of the models you want to ensemble.
-# then, press :38 and move to line 38
-opt.ensembleMode = 'avg' # you can either select 'avg', 'min', 'max' for ensembling.
-
 # press :wq and exit vi
 $ vi scripts/ensemble.sh
 
-# on the third line
+# on the second line
 export dataset=[:dataset] # put the dataset you want to ensemble your models.
+export mode=[:mode]       # you can either choose 'avg', 'min', 'max'
 
 # press :wq and exit vi
 $ ./scripts/ensemble.sh
@@ -68,10 +66,17 @@ $ ./scripts/ensemble.sh
 
 
 ## Best Results
-|   Dataset   | network      | dropout | Optimizer| Memory | Top1 Err(%)| Top5 Err(%) |
-|:-----------:|:------------:|:-------:|----------|:------:|:----------:|:-----------:|
-| CIFAR-10    | Ensemble-WRN |   0.3   | Momentum | 20.21G |  **2.88%** |     0%      |
-| CIFAR-100   | Ensemble-WRN |   0.3   | Momentum | 5.02G  | **16.44%** |  **3.57%**  |
+
+The result of ensemble models exceed the current best results in these toy datasets with heavy data augmentation only by conducting **meanstd** preprocessing.
+
+CIFAR-10's top1 accuracy reaches to **97.12%** only with average ensembling without any weight adjustions.
+
+Combining weight adjustions for each model will promise a more improved accuracy.
+
+|   Dataset   | network      | Top1 Err(%)| Top5 Err(%) |
+|:-----------:|:------------:|:----------:|:-----------:|
+| CIFAR-10    | Ensemble-WRN |  **2.88%** |      -      |
+| CIFAR-100   | Ensemble-WRN | **16.44%** |  **3.57%**  |
 
 ## Implementation Details
 
