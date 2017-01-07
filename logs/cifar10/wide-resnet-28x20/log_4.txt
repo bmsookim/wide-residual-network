@@ -1,0 +1,10 @@
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar10/wide-resnet-28x20/4/model_198.t7	
+warning: could not load nccl, falling back to default communication	
+
+===============[ Test Result Report ]===============	
+ * Dataset	: cifar10	
+ * Network	: wide-resnet 28x20	
+ * Dropout	: 0.3	
+ * nGPU		: 2	
+ * Top1		: 96.490%	
+=====================================================	

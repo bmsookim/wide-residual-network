@@ -29,6 +29,17 @@ $ luarocks install optnet
 - gen           : Generated t7 file for each dataset will be saved in this directory
 - scripts       : Directory where the run file scripts are contained
 
+## Best Results
+
+CIFAR-10's top1 accuracy reaches to **97.12%** only with average ensembling without any weight adjustions.
+
+Combining weight adjustions for each model will promise a more improved accuracy.
+
+|   Dataset   | network      | Top1 Err(%)| Top5 Err(%) |
+|:-----------:|:------------:|:----------:|:-----------:|
+| CIFAR-10    | Ensemble-WRN |  **2.88%** |      -      |
+| CIFAR-100   | Ensemble-WRN | **16.44%** |  **3.57%**  |
+
 ## How to run
 You can train each dataset of either cifar10, cifar100, svhn by running the script below.
 ```bash
@@ -63,19 +74,6 @@ export mode=[:mode]       # you can either choose 'avg', 'min', 'max'
 # press :wq and exit vi
 $ ./scripts/ensemble.sh
 ```
-
-
-## Best Results
-
-CIFAR-10's top1 accuracy reaches to **97.12%** only with average ensembling without any weight adjustions.
-
-Combining weight adjustions for each model will promise a more improved accuracy.
-
-|   Dataset   | network      | Top1 Err(%)| Top5 Err(%) |
-|:-----------:|:------------:|:----------:|:-----------:|
-| CIFAR-10    | Ensemble-WRN |  **2.88%** |      -      |
-| CIFAR-100   | Ensemble-WRN | **16.44%** |  **3.57%**  |
-
 ## Implementation Details
 
 * CIFAR-10, CIFAR-100
@@ -110,9 +108,9 @@ Below is the result of the test set accuracy for **CIFAR-10 dataset** training.
 | wide-resnet 28x10 |    0    |     ZCA    | 5.90G |   -   | 2 min 03 sec |    95.84    |
 | wide-resnet 28x10 |    0    |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.01    |
 | wide-resnet 28x10 |   0.3   |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.19    |
-| wide-resnet 28x20 |   0.3   |   meanstd  | 8.13G | 6.93G | 4 min 10 sec |  **96.42**  |
+| wide-resnet 28x20 |   0.3   |   meanstd  | 8.13G | 6.93G | 4 min 10 sec |  **96.52**  |
 | wide-resnet 40x10 |   0.3   |   meanstd  | 8.08G |   -   | 3 min 13 sec |    96.26    |
-| wide-resnet 40x14 |   0.3   |   meanstd  | 7.37G | 6.46G | 3 min 23 sec |    96.30    |
+| wide-resnet 40x14 |   0.3   |   meanstd  | 7.37G | 6.46G | 3 min 23 sec |    96.31    |
 
 ## CIFAR-100 Results
 
