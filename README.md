@@ -67,8 +67,6 @@ $ ./scripts/ensemble.sh
 
 ## Best Results
 
-The result of ensemble models exceed the current best results in these toy datasets with heavy data augmentation only by conducting **meanstd** preprocessing.
-
 CIFAR-10's top1 accuracy reaches to **97.12%** only with average ensembling without any weight adjustions.
 
 Combining weight adjustions for each model will promise a more improved accuracy.
