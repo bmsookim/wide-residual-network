@@ -29,9 +29,9 @@ torch.manualSeed(opt.manualSeed)
 cutorch.manualSeedAll(opt.manualSeed)
 
 -- ensemble depths
-ens_depth         = torch.Tensor({28, 28, 28, 40, 40})
-ens_widen_factor  = torch.Tensor({10, 20, 20, 10, 14})
-ens_nExperiment   = torch.Tensor({ 4,  1,  2,  5,  3})
+ens_depth         = torch.Tensor({28, 28, 28, 28, 40, 40, 40})
+ens_widen_factor  = torch.Tensor({20, 20, 20, 20, 10, 14, 14})
+ens_nExperiment   = torch.Tensor({ 2,  3,  4,  5,  5,  3,  4})
 
 -- get ensemble numbers
 opt.nEnsemble = ens_depth:size(1)
@@ -74,30 +74,3 @@ if opt.top5_display then
     print(' * Top5\t\t: '..string.format('%6.3f', top5)..'%')
 end
 print('=====================================================')
-
-
---[[ "Extra data loading script"
-cachePath = paths.concat(opt.gen, opt.dataset .. '.t7')
-local imageInfo = torch.load(cachePath)
-local Dataset = require('datasets/'..opt.dataset)
-
-loader = Dataset(imageInfo, opt, 'val')
-test_size = loader:size()
-
-_G.preprocess = loader:preprocess()
-
-get_input = _G.preprocess(loader:get(1).input)
-
--- set this manually! --
-sz = 10
-------------------------
-
-target = torch.IntTensor(sz):zero()
-smp_target = loader:get(1).target
-target[smp_target] = 1
-local output = model:forward(get_input:cuda()):float()
-
-print(output)
-
-local _, predictions = output:sort(2, true)
-]]--

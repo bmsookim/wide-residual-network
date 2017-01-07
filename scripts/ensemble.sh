@@ -10,7 +10,8 @@ th ensemble.lua \
     -ensembleMode ${mode} \
     -dataset ${dataset} \
     -netType ${netType} \
-    -batchSize 16 \
+    -batchSize 8 \
     -dropout 0 \
     -optnet false \
-    | tee $save/log_ensemble_${experiment_number}.txt
+    -top5_display false \
+    | tee $save/${dataset}/log_ensemble_${experiment_number}.txt

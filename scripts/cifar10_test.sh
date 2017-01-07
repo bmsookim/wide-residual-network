@@ -1,6 +1,6 @@
 #!/bin/bash
 export netType='wide-resnet'
-export depth=40
+export depth=28
 export width=10
 export dataset='cifar10'
 export save=logs/${dataset}/${netType}-${depth}x${width}

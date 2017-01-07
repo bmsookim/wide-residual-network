@@ -4,6 +4,12 @@ Wide-residual network implementations for cifar10, cifar100, and other kaggle ch
 
 Torch Implementation of Sergey Zagoruyko's [Wide Residual Networks](https://arxiv.org/pdf/1605.07146v2.pdf)
 
+In order to figure out the influence of 'width' & 'height' does on wide-residual networks,
+
+several experiments where conducted on each settings of different weights and heights.
+
+It turns out that increasing the number of features gave more positive influence to the model than making the model deeper. 
+
 ## Requirements
 See the [installation instruction](INSTALL.md) for a step-by-step installation guide.
 See the [server instruction](SERVER.md) for server settup.
@@ -37,10 +43,35 @@ You can test your own trained model of either cifar10, cifar100, svhn by running
 $ sudo sh scripts/[:dataset]_test.sh
 ```
 
+To ensemble your multiple trained models of different parameters, follow the steps below.
+```bash
+$ vi ensemble.lua
+
+# Press :32 in vi, which will move your cursor to line 32
+ens_depth         = torch.Tensor({28, 28, 28, 28, 40, 40, 40})
+ens_widen_factor  = torch.Tensor({20, 20, 20, 20, 10, 14, 14})
+ens_nExperiment   = torch.Tensor({ 2,  3,  4,  5,  5,  3,  4})
+
+# put each depth, width, and experiment number of the models you want to ensemble.
+# then, press :38 and move to line 38
+opt.ensembleMode = 'avg' # you can either select 'avg', 'min', 'max' for ensembling.
+
+# press :wq and exit vi
+$ vi scripts/ensemble.sh
+
+# on the third line
+export dataset=[:dataset] # put the dataset you want to ensemble your models.
+
+# press :wq and exit vi
+$ ./scripts/ensemble.sh
+```
+
+
 ## Best Results
-|   Dataset   | network      | dropout | Optimizer| Memory | Top1 acc(%)|
-|:-----------:|:------------:|:-------:|----------|:------:|:----------:|
-| CIFAR-10    | Ensemble-WRN |   0.3   | Momentum | 20.21G |  **96.86** |
+|   Dataset   | network      | dropout | Optimizer| Memory | Top1 Err(%)| Top5 Err(%) |
+|:-----------:|:------------:|:-------:|----------|:------:|:----------:|:-----------:|
+| CIFAR-10    | Ensemble-WRN |   0.3   | Momentum | 20.21G |  **2.88%** |     0%      |
+| CIFAR-100   | Ensemble-WRN |   0.3   | Momentum | 5.02G  | **16.44%** |  **3.57%**  |
 
 ## Implementation Details
 
@@ -76,9 +107,9 @@ Below is the result of the test set accuracy for **CIFAR-10 dataset** training.
 | wide-resnet 28x10 |    0    |     ZCA    | 5.90G |   -   | 2 min 03 sec |    95.84    |
 | wide-resnet 28x10 |    0    |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.01    |
 | wide-resnet 28x10 |   0.3   |   meanstd  | 5.90G |   -   | 2 min 03 sec |    96.19    |
-| wide-resnet 28x20 |   0.3   |   meanstd  | 8.13G | 6.93G | 4 min 10 sec |             |
-| wide-resnet 40x10 |   0.3   |   meanstd  | 8.08G |   -   | 3 min 13 sec |  **96.26**  |
-| wide-resnet 40x14 |   0.3   |   meanstd  | 7.37G | 6.46G | 3 min 23 sec |             |
+| wide-resnet 28x20 |   0.3   |   meanstd  | 8.13G | 6.93G | 4 min 10 sec |  **96.42**  |
+| wide-resnet 40x10 |   0.3   |   meanstd  | 8.08G |   -   | 3 min 13 sec |    96.26    |
+| wide-resnet 40x14 |   0.3   |   meanstd  | 7.37G | 6.46G | 3 min 23 sec |    96.30    |
 
 ## CIFAR-100 Results
 
@@ -93,7 +124,7 @@ Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 | pre-ResNet-1001   |    0    |   meanstd   |   -   |   -   | 3 min 25 sec |    77.29   |    93.44    |
 | wide-resnet 28x10 |    0    |     ZCA     | 5.90G |   -   | 2 min 03 sec |    80.03   |    95.01    |
 | wide-resnet 28x10 |    0    |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.01   |    95.44    |
-| wide-resnet 28x10 |   0.3   |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.21   |    95.22    |
+| wide-resnet 28x10 |   0.3   |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.47   |    95.53    |
 | wide-resnet 28x20 |   0.3   |   meanstd   | 8.13G | 6.93G | 4 min 05 sec |  **82.38** |  **96.06**  |
 | wide-resnet 40x10 |   0.3   |   meanstd   | 8.93G |   -   | 3 min 06 sec |    81.47   |    95.65    |
 | wide-resnet 40x14 |   0.3   |   meanstd   | 7.39G | 6.46G | 3 min 23 sec |    81.83   |    95.50    |
