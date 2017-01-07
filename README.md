@@ -2,12 +2,14 @@
 
 Wide-residual network implementations for cifar10, cifar100, and other kaggle challenges
 
-Torch Implementation of Sergey Zagoruyko's [Wide Residual Networks](https://arxiv.org/pdf/1605.07146v2.pdf)
+Torch Implementation of Sergey Zagoruyko's [Wide Residual Networks](https://arxiv.org/pdf/1605.07146v2.pdf).
 
-In order to figure out the what 'width' & 'height' does on wide-residual networks, 
-several experiments were conducted on different settings of different weights and heights.
+In order to figure out what 'width' & 'height' does on wide-residual networks, 
+several experiments were conducted on different settings of weights and heights.
 It turns out that **increasing the number of filters(increasing width)** gave more positive influence 
-to the model than making the model deeper. 
+to the model than making the model deeper.
+
+Last but not least, simply averaging a few models with different parameter settings showed a significant increase in both top1 and top5 accuracy. The CIFAR dataset test results approached to **97.12%** for CIFAR-10, and **83.53%** for CIFAR-100 with only **meanstd** normalization.
 
 ## Requirements
 See the [installation instruction](INSTALL.md) for a step-by-step installation guide.
@@ -34,10 +36,16 @@ CIFAR-10's top1 accuracy reaches to **97.12%** only with average ensembling with
 
 Combining weight adjustions for each model will promise a more improved accuracy.
 
+You can see that the ensemble network improves the single WRN results.
+
+Test error (%, random flip, **meanstd** normaliztion, median of 5 runs) on CIFAR:
+
 |   Dataset   | network      |   Top Err(%)  |
 |:-----------:|:------------:|:-------------:|
-| CIFAR-10    | Ensemble-WRN |  **2.88% @1** |
-| CIFAR-100   | Ensemble-WRN |  **3.57% @5** |
+| CIFAR-10    | WRN-28x10    |     3.89%     |
+| CIFAR-10    | Ensemble-WRN |   **2.88%**   |
+| CIFAR-100   | WRN-28x10    |    18.85%     |
+| CIFAR-100   | Ensemble-WRN |  **16.47%**   |
 
 ## How to run
 You can train each dataset of either cifar10, cifar100, svhn by running the script below.
