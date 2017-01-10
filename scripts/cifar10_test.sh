@@ -16,6 +16,7 @@ th main.lua \
     -dropout 0.3 \
     -top5_display false \
     -testOnly true \
+    -optnet false \
     -depth ${depth} \
     -widen_factor ${width} \
     -nExperiment ${experiment_number} \

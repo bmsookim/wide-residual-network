@@ -1,7 +1,7 @@
 #!/bin/bash
 export netType='wide-resnet'
-export depth=40
-export width=14
+export depth=28
+export width=10
 export dataset='cifar100'
 export save=logs/${dataset}/${netType}-${depth}x${width}
 export experiment_number=1
@@ -14,6 +14,7 @@ th main.lua \
     -resume modelState \
     -top5_display true \
     -testOnly true \
+    -optnet false \
     -dropout 0.3 \
     -batchSize 128 \
     -depth ${depth} \

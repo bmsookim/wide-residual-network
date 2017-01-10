@@ -1,0 +1,12 @@
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-28x20/4/model_199.t7	
+Skipping memory optimization. Network is already optimized for training mode.	
+warning: could not load nccl, falling back to default communication	
+
+===============[ Test Result Report ]===============	
+ * Dataset	: cifar100	
+ * Network	: wide-resnet 28x20	
+ * Dropout	: 0.3	
+ * nGPU		: 2	
+ * Top1		: 82.450%	
+ * Top5		: 96.040%	
+=====================================================	

@@ -5,7 +5,7 @@ export width=8
 export dataset='svhn'
 export save=logs/${dataset}/${netType}-${depth}x${width}
 export experiment_number=1
-mkdir -p save
+mkdir -p ${save}
 mkdir -p modelState
 
 th main.lua \

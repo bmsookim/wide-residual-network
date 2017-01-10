@@ -67,7 +67,7 @@ $ vi ensemble.lua
 # Press :32 in vi, which will move your cursor to line 32
 ens_depth         = torch.Tensor({28, 28, 28, 28, 40, 40, 40})
 ens_widen_factor  = torch.Tensor({20, 20, 20, 20, 10, 14, 14})
-ens_nExperiment   = torch.Tensor({ 2,  3,  4,  5,  5,  3,  4})
+ens_nExperiment   = torch.Tensor({ 2,  3,  4,  5,  5,  4,  5})
 ```
 
 After you set each parameter for your models, open [scripts/ensemble.sh](scripts/ensemble.sh)
@@ -136,7 +136,7 @@ Below is the result of the test set accuracy for **CIFAR-100 dataset** training.
 | wide-resnet 28x10 |    0    |     ZCA     | 5.90G |   -   | 2 min 03 sec |    80.03   |    95.01    |
 | wide-resnet 28x10 |    0    |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.01   |    95.44    |
 | wide-resnet 28x10 |   0.3   |   meanstd   | 5.90G |   -   | 2 min 03 sec |    81.47   |    95.53    |
-| wide-resnet 28x20 |   0.3   |   meanstd   | 8.13G | 6.93G | 4 min 05 sec |  **82.38** |  **96.06**  |
+| wide-resnet 28x20 |   0.3   |   meanstd   | 8.13G | 6.93G | 4 min 05 sec |  **82.43** |  **96.02**  |
 | wide-resnet 40x10 |   0.3   |   meanstd   | 8.93G |   -   | 3 min 06 sec |    81.47   |    95.65    |
 | wide-resnet 40x14 |   0.3   |   meanstd   | 7.39G | 6.46G | 3 min 23 sec |    81.83   |    95.50    |
 
@@ -148,10 +148,10 @@ Below is the result of the test set accrucay for **SVHN dataset** training.
 
 **Accuracy is the result of 1 run**
 
-| network           | dropout |  preprocess | GPU:0 | GPU:1 | per epoch    | Top1 acc(%)|
-|:-----------------:|:-------:|:-----------:|:-----:|:-----:|:------------:|:----------:|
-| wide-resnet 10x1  |   0.4   |   meanstd   | 0.47G | 0.46G | 1 min 37 sec |   93.815   |
-| wide-resnet 10x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |
-| wide-resnet 16x8  |   0.4   |   meanstd   | 2.92G |   -   | 14 min 8 sec |   98.229   | 
-| wide-resnet 22x8  |   0.4   |   meanstd   |   -   |   -   |   min    sec |            |
+| network           | dropout |  preprocess | GPU:0 |  per epoch    | Top1 acc(%)|
+|:-----------------:|:-------:|:-----------:|:-----:|:-------------:|:----------:|
+| wide-resnet 10x1  |   0.4   |   meanstd   | 0.91G |  1 min 37 sec |   93.815   |
+| wide-resnet 10x8  |   0.4   |   meanstd   | 2.03G |  7 min 32 sec |   97.411   |
+| wide-resnet 16x8  |   0.4   |   meanstd   | 2.92G | 14 min  8 sec |   98.229   | 
+| wide-resnet 22x8  |   0.4   |   meanstd   |   -   |    min    sec |            |
 
