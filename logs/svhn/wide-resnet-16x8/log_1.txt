@@ -1,0 +1,10 @@
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/svhn/wide-resnet-16x8/1/model_132.t7	
+Skipping memory optimization. Network is already optimized for training mode.	
+
+===============[ Test Result Report ]===============	
+ * Dataset	: svhn	
+ * Network	: wide-resnet 16x8	
+ * Dropout	: 0.4	
+ * nGPU		: 1	
+ * Top1		: 98.229%	
+=====================================================	
