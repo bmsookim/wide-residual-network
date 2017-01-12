@@ -26,7 +26,7 @@ $ luarocks install optnet
 ## Directions and datasets
 - modelState    : The best model will be saved in this directory
 - datasets      : Data preparation & preprocessing directory
-- models        : Wide-residual network model structure file directory
+- networks      : Wide-residual network model structure file directory
 - gen           : Generated t7 file for each dataset will be saved in this directory
 - scripts       : Directory where the run file scripts are contained
 
@@ -50,15 +50,15 @@ Test error (%, random flip, **meanstd** normaliztion, median of 5 runs) on CIFAR
 ## How to run
 You can train each dataset of either cifar10, cifar100 or svhn by running the script below.
 ```bash
-$ sudo sh scripts/[:dataset]_train.sh
+$ ./scripts/[:dataset]_train.sh
 
 # For example, if you want to train the model on cifar10, you simply type
-$ sudo sh scripts/cifar10_train.sh
+$ ./scripts/cifar10_train.sh
 ```
 
 You can test your own trained model of either cifar10, cifar100, svhn by running the script below.
 ```bash
-$ sudo sh scripts/[:dataset]_test.sh
+$ ./scripts/[:dataset]_test.sh
 ```
 
 To ensemble your multiple trained models of different parameters, follow the steps below.
@@ -153,5 +153,4 @@ Below is the result of the test set accrucay for **SVHN dataset** training.
 | wide-resnet 10x1  |   0.4   |   meanstd   | 0.91G |  1 min 37 sec |   93.815   |
 | wide-resnet 10x8  |   0.4   |   meanstd   | 2.03G |  7 min 32 sec |   97.411   |
 | wide-resnet 16x8  |   0.4   |   meanstd   | 2.92G | 14 min  8 sec |   98.229   | 
-| wide-resnet 22x8  |   0.4   |   meanstd   |   -   |    min    sec |            |
-
+| wide-resnet 22x8  |   0.4   |   meanstd   | 3.73G | 21 min 11 sec |   98.348   |

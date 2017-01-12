@@ -1,6 +1,6 @@
 #!/bin/bash
 export netType='wide-resnet'
-export depth=16
+export depth=22
 export width=8
 export dataset='svhn'
 export save=logs/${dataset}/${netType}-${depth}x${width}
