@@ -1,0 +1,28 @@
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-28x10/2/model_198.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-28x20/1/model_163.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-28x20/3/model_194.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-28x20/4/model_199.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-28x20/5/model_180.t7	
+warning: could not load nccl, falling back to default communication	
+=> Resuming model from /home/bumsoo/Github/wide-residual-network/modelState/cifar100/wide-resnet-40x14/1/model_187.t7	
+warning: could not load nccl, falling back to default communication	
+
+===============[ Test Result Report ]===============	
+ * Dataset	: cifar100	
+ * Ensemble Network : 	
+   | Network1	: wide-resnet 28x10, 2	
+   | Network2	: wide-resnet 28x20, 1	
+   | Network3	: wide-resnet 28x20, 3	
+   | Network4	: wide-resnet 28x20, 4	
+   | Network5	: wide-resnet 28x20, 5	
+   | Network6	: wide-resnet 40x14, 1	
+ * Dropout	: 0	
+ * nGPU		: 2	
+ * Top1		: 84.190%	
+ * Top5		: 96.890%	
+ * Elapsed time	: 2m21s	
+=====================================================	

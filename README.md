@@ -9,7 +9,7 @@ several experiments were conducted on different settings of weights and heights.
 It turns out that **increasing the number of filters(increasing width)** gave more positive influence 
 to the model than making the model deeper.
 
-Last but not least, simply averaging a few models with different parameter settings showed a significant increase in both top1 and top5 accuracy. The CIFAR dataset test results approached to **97.12%** for CIFAR-10, and **84.12%** for CIFAR-100 with only **meanstd** normalization.
+Last but not least, simply averaging a few models with different parameter settings showed a significant increase in both top1 and top5 accuracy. The CIFAR dataset test results approached to **97.12%** for CIFAR-10, and **84.19%** for CIFAR-100 with only **meanstd** normalization.
 
 ## Requirements
 See the [installation instruction](INSTALL.md) for a step-by-step installation guide.
@@ -45,7 +45,7 @@ Test error (%, random flip, **meanstd** normaliztion, median of 5 runs) on CIFAR
 | CIFAR-10    | WRN-28x10    |     3.89     |
 | CIFAR-10    | Ensemble-WRN |   **2.88**   |
 | CIFAR-100   | WRN-28x10    |    18.85     |
-| CIFAR-100   | Ensemble-WRN |  **15.88**   |
+| CIFAR-100   | Ensemble-WRN |  **15.81**   |
 
 ## How to run
 You can train each dataset of either cifar10, cifar100 or svhn by running the script below.
